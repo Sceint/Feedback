@@ -1,0 +1,29 @@
+<resources>
+
+
+    <string name="app_name">Parent Feedback</string>
+
+    <string-array name="branch">
+        <item>CSE</item>
+        <item>IT</item>
+        <item>ECE</item>
+        <item>EIE</item>
+    </string-array>
+
+    <string-array name="branch1">
+        <item>A</item>
+        <item>B</item>
+        <item>C</item>
+        <item>D</item>
+        <item>E</item>
+        <item>F</item>
+        <item>G</item>
+    </string-array>
+
+    <string-array name="branch2">
+        <item>Employee</item>
+        <item>Self Employeed</item>
+        <item>Others</item>
+    </string-array>
+
+</resources>
