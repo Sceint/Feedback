@@ -17,7 +17,8 @@ public class FeedBack1 extends AppCompatActivity {
         ratingBar1 = (RatingBar) findViewById(R.id.ratingBar);
     }
     public void gotoFeedback2Page(View view){
-
+        ConnectDatabase connectDatabase = ConnectDatabase.getInstance();
+        connectDatabase.addData("Q01",ratingBar1.getRating());
         Intent nextPage=new Intent(FeedBack1.this,FeedBack2.class);
         startActivity(nextPage);
     }

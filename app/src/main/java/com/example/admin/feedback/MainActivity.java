@@ -13,6 +13,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
     public void gotoRegisterPage(View view){
+        ConnectDatabase connectDatabase = ConnectDatabase.getInstance();
+        connectDatabase.connect();
         Intent nextPage=new Intent(MainActivity.this,RegisterPage.class);
         startActivity(nextPage);
     }
