@@ -28,12 +28,13 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Course : Btech"
-        android:id="@+id/textview1"
+        android:text="Course : B. Tech"
+        android:id="@+id/textView1"
         android:fontFamily="sans-serif"
+        android:textSize="18sp"
         android:layout_alignParentTop="true"
         android:layout_alignStart="@+id/textView3"
-        android:layout_marginTop="38dp" />
+        android:layout_marginTop="30dp" />
 
     <TextView
         android:text="Branch"
@@ -41,13 +42,13 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:id="@+id/textView3"
-        android:layout_above="@+id/spinner4"
+        android:layout_above="@+id/section"
         android:layout_alignParentStart="true"
         android:layout_marginBottom="35dp" />
 
     <Spinner
         android:layout_height="wrap_content"
-        android:id="@+id/spinner3"
+        android:id="@+id/branch"
         android:layout_width="120dp"
         android:layout_marginEnd="47dp"
         android:entries="@array/branch"
@@ -55,30 +56,27 @@
         android:layout_alignBottom="@+id/textView3"
         android:layout_alignParentEnd="true" />
 
-    <Spinner
+    r<Spinner
         android:layout_width="120dp"
         android:layout_height="wrap_content"
-        android:id="@+id/spinner4"
-        android:entries="@array/branch1"
-
+        android:id="@+id/section"
+        android:entries="@array/section1"
         android:layout_alignBottom="@+id/textView4"
-        android:layout_alignStart="@+id/spinner3" />
+        android:layout_alignStart="@+id/branch" />
 
     <TextView
         android:text="Parent Name"
         android:layout_width="115dp"
         android:layout_height="wrap_content"
         android:id="@+id/textView"
-        android:layout_below="@+id/textview1"
+        android:layout_below="@+id/textView1"
         android:layout_alignStart="@+id/textView4"
         android:layout_marginTop="194dp" />
 
     <TextView
-        android:text="Class"
+        android:text="Section"
         android:layout_width="50dp"
         android:layout_height="wrap_content"
-
-
         android:id="@+id/textView4"
         android:layout_marginBottom="25dp"
         android:layout_above="@+id/editText5"
@@ -97,36 +95,34 @@
     <Spinner
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:entries="@array/branch2"
+        android:entries="@array/occupation"
         android:id="@+id/spinner2"
         android:layout_alignBottom="@+id/textView5"
-        android:layout_alignStart="@+id/spinner4" />
+        android:layout_alignStart="@+id/section" />
 
     <EditText
         android:id="@+id/editText9"
-        android:layout_width="250dp"
+        android:layout_width="220dp"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/textView2"
         android:layout_alignBottom="@+id/textView2"
         android:layout_alignStart="@+id/editText5"
         android:ems="10"
         android:hint="enter the age"
+        android:paddingRight="10dp"
         android:inputType="number" />
 
     <EditText
         android:id="@+id/editText5"
-        android:layout_width="250dp"
+        android:layout_width="220dp"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/textView"
         android:layout_alignBottom="@+id/textView"
         android:layout_alignParentEnd="true"
         android:ems="10"
         android:hint="enter name(OPTIONAL)"
+        android:paddingRight="10dp"
         android:inputType="textPersonName" />
 
 
 </RelativeLayout>
-
-
-
-

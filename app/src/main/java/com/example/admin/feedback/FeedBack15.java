@@ -20,9 +20,7 @@ public class FeedBack15 extends AppCompatActivity {
     public void gotoFinishPage(View view) {
         ConnectDatabase connectDatabase = ConnectDatabase.getInstance();
         connectDatabase.addData("Q15", ratingBar15.getRating());
-        connectDatabase.pushData();
-        //connectDatabase.seeData();
-        connectDatabase.disconnect();
+        connectDatabase.pushFeedbackData();
         Intent nextPage = new Intent(FeedBack15.this, Welcome.class);
         startActivity(nextPage);
     }

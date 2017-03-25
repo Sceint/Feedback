@@ -10,7 +10,7 @@
         <item>EIE</item>
     </string-array>
 
-    <string-array name="branch1">
+    <string-array name="section1">
         <item>A</item>
         <item>B</item>
         <item>C</item>
@@ -20,9 +20,20 @@
         <item>G</item>
     </string-array>
 
-    <string-array name="branch2">
+    <string-array name="section2">
+        <item>A</item>
+    </string-array>
+
+    <string-array name="section3">
+        <item>A</item>
+        <item>B</item>
+        <item>C</item>
+        <item>D</item>
+    </string-array>
+
+    <string-array name="occupation">
         <item>Employee</item>
-        <item>Self Employeed</item>
+        <item>Self Employed</item>
         <item>Others</item>
     </string-array>
 
