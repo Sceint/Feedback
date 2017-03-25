@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textView5"
-        android:layout_below="@+id/editText9"
+        android:layout_below="@+id/age"
         android:layout_alignStart="@+id/textView2"
         android:layout_marginTop="28dp" />
 
@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="17dp"
         android:id="@+id/textView2"
-        android:layout_below="@+id/editText5"
+        android:layout_below="@+id/name"
         android:layout_alignStart="@+id/textView" />
 
     <TextView
@@ -79,7 +79,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/textView4"
         android:layout_marginBottom="25dp"
-        android:layout_above="@+id/editText5"
+        android:layout_above="@+id/name"
         android:layout_alignStart="@+id/textView3" />
 
     <Button
@@ -96,24 +96,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:entries="@array/occupation"
-        android:id="@+id/spinner2"
+        android:id="@+id/occupation"
         android:layout_alignBottom="@+id/textView5"
         android:layout_alignStart="@+id/section" />
 
     <EditText
-        android:id="@+id/editText9"
+        android:id="@+id/age"
         android:layout_width="220dp"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/textView2"
         android:layout_alignBottom="@+id/textView2"
-        android:layout_alignStart="@+id/editText5"
+        android:layout_alignStart="@+id/name"
         android:ems="10"
         android:hint="enter the age"
         android:paddingRight="10dp"
         android:inputType="number" />
 
     <EditText
-        android:id="@+id/editText5"
+        android:id="@+id/name"
         android:layout_width="220dp"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/textView"

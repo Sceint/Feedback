@@ -11,7 +11,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
-import java.io.StreamCorruptedException;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -26,7 +25,7 @@ class ConnectDatabase {
 
     private HttpURLConnection httpURLConnection;
     private static ConnectDatabase connectDatabase;
-    private StringBuilder stringBuilder,status;
+    private StringBuilder stringBuilder, status, parentData;
 
     private ConnectDatabase() {
 
@@ -38,25 +37,11 @@ class ConnectDatabase {
         return connectDatabase;
     }
 
-    void getStatus(Context context){
+    void getStatus(Context context) {
         AlertDialog alertDialog = new AlertDialog.Builder(context).create();
         alertDialog.setTitle("Status");
         alertDialog.setMessage(status);
         alertDialog.show();
-    }
-
-    void connect() {
-        String login_url = "http://192.168.2.7/database.php";
-
-        try {
-            URL url = new URL(login_url);
-            httpURLConnection = (HttpURLConnection) url.openConnection();
-            httpURLConnection.setRequestMethod("POST");
-            httpURLConnection.setDoOutput(true);
-            httpURLConnection.setDoInput(true);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     void addData(String s, Float f) {
@@ -76,8 +61,55 @@ class ConnectDatabase {
         }
     }
 
-    void pushParentData(){
+    void getParentData(String... strings) {
+        try {
+            parentData = new StringBuilder();
+            parentData.append(URLEncoder.encode("data", "UTF-8")).append("=").append(URLEncoder.encode("parentData", "UTF-8"));
+            for (int i = 0; i < strings.length; i++) {
+                parentData.append("&").append(URLEncoder.encode("par" + i, "UTF-8")).append("=").append(URLEncoder.encode(strings[i], "UTF-8"));
+            }
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+    }
 
+    void pushParentData() {
+        class WriteData extends AsyncTask<Void, Void, Void> {
+            @Override
+            protected Void doInBackground(Void... params) {
+                try {
+                    String login_url = "http://192.168.2.7/AndroidPHP/parentDataUpload.php";
+
+                    URL url = new URL(login_url);
+                    httpURLConnection = (HttpURLConnection) url.openConnection();
+                    httpURLConnection.setRequestMethod("POST");
+                    httpURLConnection.setDoOutput(true);
+                    httpURLConnection.setDoInput(true);
+
+                    OutputStream outputStream = httpURLConnection.getOutputStream();
+                    BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+                    bufferedWriter.write(parentData.toString());
+                    bufferedWriter.flush();
+                    bufferedWriter.close();
+                    outputStream.close();
+
+                    InputStream inputStream = httpURLConnection.getInputStream();
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
+                    status = new StringBuilder();
+                    String s;
+                    while ((s = bufferedReader.readLine()) != null)
+                        status.append(s);
+                    bufferedReader.close();
+                    inputStream.close();
+                    httpURLConnection.disconnect();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                return null;
+            }
+        }
+        WriteData writeData = new WriteData();
+        writeData.execute();
     }
 
     void pushFeedbackData() {
@@ -85,6 +117,13 @@ class ConnectDatabase {
             @Override
             protected Void doInBackground(Void... params) {
                 try {
+                    String login_url = "http://192.168.2.7/AndroidPHP/feedbackUpload.php";
+
+                    URL url = new URL(login_url);
+                    httpURLConnection = (HttpURLConnection) url.openConnection();
+                    httpURLConnection.setRequestMethod("POST");
+                    httpURLConnection.setDoOutput(true);
+                    httpURLConnection.setDoInput(true);
                     OutputStream outputStream = httpURLConnection.getOutputStream();
                     BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
                     bufferedWriter.write(stringBuilder.toString());
@@ -96,7 +135,7 @@ class ConnectDatabase {
                     BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
                     status = new StringBuilder();
                     String s;
-                    while((s=bufferedReader.readLine()) != null)
+                    while ((s = bufferedReader.readLine()) != null)
                         status.append(s);
                     bufferedReader.close();
                     inputStream.close();
@@ -106,7 +145,6 @@ class ConnectDatabase {
                 }
                 return null;
             }
-
         }
         WriteData writeData = new WriteData();
         writeData.execute();
