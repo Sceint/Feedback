@@ -1,9 +1,8 @@
 package com.example.admin.feedback;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.AsyncTask;
-import android.support.v7.app.AlertDialog;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -38,10 +37,8 @@ class ConnectDatabase {
     }
 
     void getStatus(Context context) {
-        AlertDialog alertDialog = new AlertDialog.Builder(context).create();
-        alertDialog.setTitle("Status");
-        alertDialog.setMessage(status);
-        alertDialog.show();
+        Toast toast = Toast.makeText(context, status.toString(), Toast.LENGTH_SHORT);
+        toast.show();
     }
 
     void addData(String s, Float f) {
@@ -78,7 +75,7 @@ class ConnectDatabase {
             @Override
             protected Void doInBackground(Void... params) {
                 try {
-                    String login_url = "http://192.168.2.7/AndroidPHP/parentDataUpload.php";
+                    String login_url = "http://192.168.2.9/AndroidPHP/parentDataUpload.php";
 
                     URL url = new URL(login_url);
                     httpURLConnection = (HttpURLConnection) url.openConnection();
@@ -117,7 +114,7 @@ class ConnectDatabase {
             @Override
             protected Void doInBackground(Void... params) {
                 try {
-                    String login_url = "http://192.168.2.7/AndroidPHP/feedbackUpload.php";
+                    String login_url = "http://192.168.2.9/AndroidPHP/feedbackUpload.php";
 
                     URL url = new URL(login_url);
                     httpURLConnection = (HttpURLConnection) url.openConnection();

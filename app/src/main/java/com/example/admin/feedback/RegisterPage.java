@@ -13,7 +13,7 @@ import android.widget.Spinner;
 public class RegisterPage extends AppCompatActivity implements OnItemSelectedListener{
 
     EditText name,age;
-    Spinner spinner1,spinner2,spinner3;
+    Spinner spinner1,spinner2,spinner3,spinner4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +26,7 @@ public class RegisterPage extends AppCompatActivity implements OnItemSelectedLis
         spinner1 = (Spinner) findViewById(R.id.branch);
         spinner2 = (Spinner) findViewById(R.id.section);
         spinner3 = (Spinner) findViewById(R.id.occupation);
+        spinner4 = (Spinner) findViewById(R.id.year);
         ArrayAdapter myAdapter = ArrayAdapter.createFromResource(this,R.array.branch,android.R.layout.simple_spinner_item);
         spinner1.setAdapter(myAdapter);
         spinner1.setOnItemSelectedListener(this);
@@ -58,7 +59,7 @@ public class RegisterPage extends AppCompatActivity implements OnItemSelectedLis
     public void gotoFeedback1Page(View view){
         ConnectDatabase connectDatabase = ConnectDatabase.getInstance();
         connectDatabase.getParentData(spinner1.getSelectedItem().toString(),spinner2.getSelectedItem().toString() ,
-                name.getText().toString(), age.getText().toString(), spinner3.getSelectedItem().toString());
+               spinner4.getSelectedItem().toString(), name.getText().toString(), age.getText().toString(), spinner3.getSelectedItem().toString());
         connectDatabase.pushParentData();
         Intent nextPage=new Intent(RegisterPage.this,FeedBack1.class);
         startActivity(nextPage);
