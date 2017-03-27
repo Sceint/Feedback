@@ -63,6 +63,7 @@
         android:layout_marginTop="16dp"
         android:ems="10"
         android:hint="Enter Your Name(OPTIONAL)"
+        android:textSize="15sp"
         android:inputType="textPersonName" />
 
     <TextView
@@ -79,7 +80,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:text="AGE"
+        android:text="MOBILE NO"
         android:layout_below="@+id/textView5"
         android:layout_alignStart="@+id/textView5" />
 
@@ -88,7 +89,8 @@
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Enter Your Age(OPTIONAL)"
+        android:hint="Enter Your Number(OPTIONAL)"
+        android:textSize="15sp"
         android:inputType="number"
         android:layout_alignBaseline="@+id/textView6"
         android:layout_alignBottom="@+id/textView6"
@@ -117,6 +119,7 @@
         android:layout_height="wrap_content"
         android:onClick="gotoFeedback1Page"
         android:text="Register"
+        android:layout_alignBottom="@id/textView7"
         android:layout_marginBottom="21dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />

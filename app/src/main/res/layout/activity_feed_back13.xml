@@ -7,127 +7,129 @@
     tools:context="com.example.admin.feedback.MainActivity">
 
 
-<TextView
-        android:text="QUESTION 13:"
-        android:layout_width="150dp"
+    <TextView
         android:id="@+id/textView6"
+        android:layout_width="150dp"
         android:layout_height="30dp"
-        android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
         android:layout_marginStart="14dp"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="20dp"
+        android:text="QUESTION 13:" />
 
     <TextView
-    android:layout_height="40dp"
-    android:id="@+id/textView7"
-    android:text="The curriculum incorporates recent changes in the area."
-    android:layout_width="300dp"
-    android:layout_marginTop="10dp"
-    android:layout_below="@+id/textView6"
-    android:layout_alignStart="@+id/textView6" />
+        android:layout_height="60dp"
+        android:paddingTop="10dp"
+        android:id="@+id/textView7"
+        android:layout_width="300dp"
+        android:layout_alignStart="@+id/textView6"
+        android:layout_below="@+id/textView6"
+        android:layout_marginTop="10dp"
+        android:text="@string/Q13"
+        android:textSize="20sp" />
 
     <TextView
-        android:text="1 STAR"
-        android:layout_height="30dp"
-        android:layout_below="@+id/ratingBar"
-        android:layout_alignStart="@+id/ratingBar"
-        android:layout_marginTop="21dp"
         android:id="@+id/textView8"
-        android:layout_width="50dp" />
+        android:layout_width="50dp"
+        android:layout_height="30dp"
+        android:layout_alignStart="@+id/ratingBar"
+        android:layout_below="@+id/ratingBar"
+        android:layout_marginTop="21dp"
+        android:text="@string/rating1" />
 
     <TextView
-        android:text="2 STARS"
+        android:id="@+id/textView10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView8"
         android:layout_alignStart="@+id/textView8"
-        android:id="@+id/textView10" />
+        android:layout_below="@+id/textView8"
+        android:text="@string/rating2" />
 
     <TextView
-        android:text="SATISFACTORY"
+        android:id="@+id/textView11"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/textView11"
         android:layout_alignBaseline="@+id/textView10"
         android:layout_alignBottom="@+id/textView10"
-        android:layout_alignStart="@+id/textView9" />
+        android:layout_alignStart="@+id/textView9"
+        android:text="@string/remark2" />
 
     <TextView
-        android:text="3 STARS"
+        android:id="@+id/textView12"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView10"
         android:layout_alignStart="@+id/textView10"
+        android:layout_below="@+id/textView10"
         android:layout_marginTop="13dp"
-        android:id="@+id/textView12" />
+        android:text="@string/rating3" />
 
     <TextView
-        android:text="GOOD"
+        android:id="@+id/textView13"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/textView12"
         android:layout_alignStart="@+id/textView11"
-        android:id="@+id/textView13" />
+        android:layout_alignTop="@+id/textView12"
+        android:text="@string/remark3" />
 
     <TextView
-        android:text="4 STARS"
+        android:id="@+id/textView14"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView12"
         android:layout_alignStart="@+id/textView12"
+        android:layout_below="@+id/textView12"
         android:layout_marginTop="10dp"
-        android:id="@+id/textView14" />
+        android:text="@string/rating4" />
 
     <TextView
-        android:text="VERY GOOD"
+        android:id="@+id/textView15"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/textView14"
         android:layout_alignStart="@+id/textView13"
-        android:id="@+id/textView15" />
+        android:layout_alignTop="@+id/textView14"
+        android:text="@string/remark4" />
 
     <TextView
-        android:text="5 STARS"
+        android:id="@+id/textView16"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView14"
         android:layout_alignStart="@+id/textView14"
+        android:layout_below="@+id/textView14"
         android:layout_marginTop="13dp"
-        android:id="@+id/textView16" />
+        android:text="@string/rating5" />
 
     <TextView
-        android:text="EXCELLENT"
+        android:id="@+id/textView17"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/textView16"
         android:layout_alignStart="@+id/textView15"
-        android:id="@+id/textView17" />
+        android:layout_alignTop="@+id/textView16"
+        android:text="@string/remark5" />
 
     <Button
-        android:text="NEXT"
+        android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/button2"
-        android:onClick="gotoFeedback14Page"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="34dp" />
+        android:layout_marginBottom="34dp"
+        android:onClick="gotoFeedback14Page"
+        android:text="NEXT" />
 
     <TextView
-        android:text="POOR"
+        android:id="@+id/textView9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/textView9"
         android:layout_alignBaseline="@+id/textView8"
         android:layout_alignBottom="@+id/textView8"
-        android:layout_alignEnd="@+id/button2" />
+        android:layout_alignEnd="@+id/button2"
+        android:text="@string/remark1" />
 
     <RatingBar
+        android:id="@+id/ratingBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/ratingBar"
-        android:layout_marginTop="26dp"
         android:layout_below="@+id/textView7"
         android:layout_centerHorizontal="true"
-        android:stepSize="1"/>
+        android:layout_marginTop="26dp"
+        android:stepSize="1" />
 </RelativeLayout>

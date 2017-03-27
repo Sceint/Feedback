@@ -42,4 +42,33 @@
         <item>Others</item>
     </string-array>
 
+    <string name="Q1">Getting admission in the college for my ward is a matter of pride for me.</string>
+    <string name="Q2">The admission process in the college is fair and accurate.</string>
+    <string name="Q3">My ward is improving his knowledge through interaction with Faculty of the college.</string>
+    <string name="Q4">The discipline in the college is good.</string>
+    <string name="Q5">The atmosphere in the college is conducive for learning.</string>
+    <string name="Q6">There is a positive change in the behaviour of my ward after joining the college.</string>
+    <string name="Q7">I have great respect for KMIT.</string>
+    <string name="Q8">How do you rate KMIT as one of the best colleges among the JNTU affiliated​ colleges.</string>
+    <string name="Q9">The college information is accessible to all.</string>
+    <string name="Q10">KMIT website is very informative and is regularly updated.</string>
+    <string name="Q11">The curriculum of the course is well designed and promotes learning experience of the students.</string>
+    <string name="Q12">Employability is given focus in the curriculum design.</string>
+    <string name="Q13">The curriculum incorporates recent changes in the area.</string>
+    <string name="Q14">Examination results are intimidated timely.</string>
+    <string name="Q15">The college Staff are cooperative.</string>
+
+    <string name="rating5">1 STAR</string>
+    <string name="rating4">2 STAR</string>
+    <string name="rating3">3 STAR</string>
+    <string name="rating2">4 STAR</string>
+    <string name="rating1">5 STAR</string>
+
+    <string name="remark5">POOR</string>
+    <string name="remark4">SATISFACTORY</string>
+    <string name="remark3">GOOD</string>
+    <string name="remark2">VERY GOOD</string>
+    <string name="remark1">EXCELLENT</string>
+
+
 </resources>

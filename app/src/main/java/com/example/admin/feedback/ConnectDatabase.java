@@ -24,10 +24,15 @@ class ConnectDatabase {
 
     private HttpURLConnection httpURLConnection;
     private static ConnectDatabase connectDatabase;
-    private StringBuilder stringBuilder, status, parentData;
+    private StringBuilder stringBuilder, parentData;
+    private String status = "Failed",id = "";
 
     private ConnectDatabase() {
 
+    }
+
+    static void clear(){
+        connectDatabase = null;
     }
 
     static ConnectDatabase getInstance() {
@@ -39,6 +44,7 @@ class ConnectDatabase {
     void getStatus(Context context) {
         Toast toast = Toast.makeText(context, status.toString(), Toast.LENGTH_SHORT);
         toast.show();
+        status = "";
     }
 
     void addData(String s, Float f) {
@@ -46,6 +52,7 @@ class ConnectDatabase {
             if (stringBuilder == null) {
                 stringBuilder = new StringBuilder();
                 stringBuilder.append(URLEncoder.encode("data", "UTF-8")).append("=").append(URLEncoder.encode("ratingData", "UTF-8"))
+                        .append("&").append(URLEncoder.encode("Q00", "UTF-8")).append("=").append(URLEncoder.encode(id , "UTF-8"))
                         .append("&").append(URLEncoder.encode(s, "UTF-8")).append("=").append(URLEncoder.encode(String.valueOf(Math.round(f)), "UTF-8"));
             } else if (stringBuilder.indexOf(s) != -1) {
                 stringBuilder.replace(stringBuilder.indexOf(s), stringBuilder.indexOf(s) + 5,
@@ -75,7 +82,7 @@ class ConnectDatabase {
             @Override
             protected Void doInBackground(Void... params) {
                 try {
-                    String login_url = "http://192.168.2.9/AndroidPHP/parentDataUpload.php";
+                    String login_url = "http://192.168.2.13/AndroidPHP/parentDataUpload.php";
 
                     URL url = new URL(login_url);
                     httpURLConnection = (HttpURLConnection) url.openConnection();
@@ -92,10 +99,11 @@ class ConnectDatabase {
 
                     InputStream inputStream = httpURLConnection.getInputStream();
                     BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
-                    status = new StringBuilder();
                     String s;
                     while ((s = bufferedReader.readLine()) != null)
-                        status.append(s);
+                        id += s;
+                    if(!id.equals(""))
+                        status = "Successful";
                     bufferedReader.close();
                     inputStream.close();
                     httpURLConnection.disconnect();
@@ -114,7 +122,7 @@ class ConnectDatabase {
             @Override
             protected Void doInBackground(Void... params) {
                 try {
-                    String login_url = "http://192.168.2.9/AndroidPHP/feedbackUpload.php";
+                    String login_url = "http://192.168.2.13/AndroidPHP/feedbackUpload.php";
 
                     URL url = new URL(login_url);
                     httpURLConnection = (HttpURLConnection) url.openConnection();
@@ -130,10 +138,10 @@ class ConnectDatabase {
 
                     InputStream inputStream = httpURLConnection.getInputStream();
                     BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
-                    status = new StringBuilder();
                     String s;
+                    status = "";
                     while ((s = bufferedReader.readLine()) != null)
-                        status.append(s);
+                        status += s;
                     bufferedReader.close();
                     inputStream.close();
                     httpURLConnection.disconnect();
