@@ -35,12 +35,27 @@ public class RegisterPage extends AppCompatActivity implements OnItemSelectedLis
     }
 
     boolean nameCheck() {
-        if(name.getText().toString().matches(".*\\d+.*") || name.getText().toString().equals(""))
+        String check = name.getText().toString();
+        if(check.length() > 25){
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Invalid Name...!!");
+            builder.setMessage("Maximum Length = 25 Characters")
+                    .setCancelable(false)
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+            AlertDialog alert = builder.create();
+            alert.show();
+            return false;
+        }
+        if(check.matches("[A-Za-z]*(\\s[A-Za-z]*){0,2}") || check.equals(""))
             return true;
         else{
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("Invalid Name...!!");
-            builder.setMessage("No digits are allowed")
+            builder.setMessage("Only Alphabet are allowed..!!")
                     .setCancelable(false)
                     .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
@@ -100,6 +115,7 @@ public class RegisterPage extends AppCompatActivity implements OnItemSelectedLis
             connectDatabase.getParentData(spinner1.getSelectedItem().toString(), spinner2.getSelectedItem().toString(),
                     spinner4.getSelectedItem().toString(), name.getText().toString(), mobileNo.getText().toString(), spinner3.getSelectedItem().toString());
             connectDatabase.pushParentData();
+            ConnectDatabase.getInstance().getStatus(this);
             Intent nextPage = new Intent(RegisterPage.this, FeedBack1.class);
             startActivity(nextPage);
         }

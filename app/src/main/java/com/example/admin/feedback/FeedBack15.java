@@ -17,11 +17,11 @@ public class FeedBack15 extends AppCompatActivity {
         ratingBar15 = (RatingBar) findViewById(R.id.ratingBar);
     }
 
-    public void gotoFinishPage(View view) {
+    public void gotoRemarkPage(View view) {
         ConnectDatabase connectDatabase = ConnectDatabase.getInstance();
         connectDatabase.addData("Q15", ratingBar15.getRating());
         connectDatabase.pushFeedbackData();
-        Intent nextPage = new Intent(FeedBack15.this, Welcome.class);
+        Intent nextPage = new Intent(FeedBack15.this, Remark.class);
         startActivity(nextPage);
     }
 }

@@ -34,6 +34,7 @@
         <activity android:name=".FeedBack13" />
         <activity android:name=".FeedBack14" />
         <activity android:name=".FeedBack15" />
+        <activity android:name=".Remark" />
         <activity android:name=".Welcome"></activity>
     </application>
 

@@ -15,8 +15,6 @@ public class FeedBack2 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed_back2);
         ratingBar2 = (RatingBar) findViewById(R.id.ratingBar);
-
-        ConnectDatabase.getInstance().getStatus(this);
     }
     public void gotoFeedback3Page(View view){
         ConnectDatabase connectDatabase = ConnectDatabase.getInstance();
