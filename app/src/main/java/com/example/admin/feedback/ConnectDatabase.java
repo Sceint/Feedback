@@ -100,7 +100,7 @@ class ConnectDatabase {
             @Override
             protected Void doInBackground(Void... params) {
                 try {
-                    String login_url = "http://192.168.2.4/AndroidPHP/parentDataUpload.php";
+                    String login_url = "http://192.168.43.98/AndroidPHP/parentDataUpload.php";
 
                     URL url = new URL(login_url);
                     httpURLConnection = (HttpURLConnection) url.openConnection();
@@ -141,7 +141,7 @@ class ConnectDatabase {
             @Override
             protected Void doInBackground(Void... params) {
                 try {
-                    String login_url = "http://192.168.2.4/AndroidPHP/feedbackUpload.php";
+                    String login_url = "http://192.168.43.98/AndroidPHP/feedbackUpload.php";
 
                     URL url = new URL(login_url);
                     httpURLConnection = (HttpURLConnection) url.openConnection();
@@ -192,7 +192,7 @@ class ConnectDatabase {
             @Override
             protected Void doInBackground(Void... params) {
                 try {
-                    String login_url = "http://192.168.2.4/AndroidPHP/remarkUpload.php";
+                    String login_url = "http://192.168.43.98/AndroidPHP/remarkUpload.php";
 
                     URL url = new URL(login_url);
                     httpURLConnection = (HttpURLConnection) url.openConnection();

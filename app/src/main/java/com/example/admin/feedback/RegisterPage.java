@@ -36,20 +36,6 @@ public class RegisterPage extends AppCompatActivity implements OnItemSelectedLis
 
     boolean nameCheck() {
         String check = name.getText().toString();
-        if(check.length() > 25){
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("Invalid Name...!!");
-            builder.setMessage("Maximum Length = 25 Characters")
-                    .setCancelable(false)
-                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            dialog.cancel();
-                        }
-                    });
-            AlertDialog alert = builder.create();
-            alert.show();
-            return false;
-        }
         if(check.matches("[A-Za-z]*(\\s[A-Za-z]*){0,2}") || check.equals(""))
             return true;
         else{
