@@ -42,13 +42,13 @@ class ConnectDatabase {
     }
 
     void getStatus(Context context) {
-        final Toast toast = Toast.makeText(context, status, Toast.LENGTH_SHORT);
+        final Toast toast = Toast.makeText(context, "Status Not Received", Toast.LENGTH_SHORT);
         Thread thread=  new Thread(){
             @Override
             public void run(){
                 try {
                     synchronized(this){
-                        wait(2000);
+                        wait(4000);
                     }
                 }
                 catch(InterruptedException ignored){
@@ -100,7 +100,7 @@ class ConnectDatabase {
             @Override
             protected Void doInBackground(Void... params) {
                 try {
-                    String login_url = "http://192.168.43.98/AndroidPHP/parentDataUpload.php";
+                    String login_url = "https://sceint.000webhostapp.com/parentDataUpload.php";
 
                     URL url = new URL(login_url);
                     httpURLConnection = (HttpURLConnection) url.openConnection();
@@ -141,7 +141,7 @@ class ConnectDatabase {
             @Override
             protected Void doInBackground(Void... params) {
                 try {
-                    String login_url = "http://192.168.43.98/AndroidPHP/feedbackUpload.php";
+                    String login_url = "https://sceint.000webhostapp.com/feedbackUpload.php";
 
                     URL url = new URL(login_url);
                     httpURLConnection = (HttpURLConnection) url.openConnection();
@@ -192,7 +192,7 @@ class ConnectDatabase {
             @Override
             protected Void doInBackground(Void... params) {
                 try {
-                    String login_url = "http://192.168.43.98/AndroidPHP/remarkUpload.php";
+                    String login_url = "https://sceint.000webhostapp.com/remarkUpload.php";
 
                     URL url = new URL(login_url);
                     httpURLConnection = (HttpURLConnection) url.openConnection();
