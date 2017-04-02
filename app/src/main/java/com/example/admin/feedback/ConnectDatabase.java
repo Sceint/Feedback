@@ -118,6 +118,7 @@ class ConnectDatabase {
                     InputStream inputStream = httpURLConnection.getInputStream();
                     BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
                     String s;
+                    id="";
                     while ((s = bufferedReader.readLine()) != null)
                         id += s;
                     if(!id.equals(""))
