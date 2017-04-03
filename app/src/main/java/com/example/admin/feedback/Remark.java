@@ -15,13 +15,15 @@ public class Remark extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_remark);
         remark = (EditText) findViewById(R.id.remark);
-        ConnectDatabase.getInstance().getStatus(this);
+//        ConnectDatabase.getInstance().getStatus(this);
     }
 
     public void gotoFinishPage(View view) {
-        ConnectDatabase connectDatabase = ConnectDatabase.getInstance();
-        connectDatabase.getRemark(remark.getText().toString());
-        connectDatabase.uploadRemark();
+        OfflineStoreHelper offlineStoreHelper = OfflineStoreHelper.getInstance(this);
+        offlineStoreHelper.insertRemark(remark.getText().toString());
+//        ConnectDatabase connectDatabase = ConnectDatabase.getInstance();
+//        connectDatabase.getRemark(remark.getText().toString());
+//        connectDatabase.uploadRemark();
         Intent nextPage = new Intent(Remark.this, Welcome.class);
         startActivity(nextPage);
     }

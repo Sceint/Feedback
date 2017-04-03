@@ -2,6 +2,7 @@ package com.example.admin.feedback;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -36,9 +37,9 @@ public class RegisterPage extends AppCompatActivity implements OnItemSelectedLis
 
     boolean nameCheck() {
         String check = name.getText().toString();
-        if(check.matches("[A-Za-z]*(\\s[A-Za-z]*){0,2}") || check.equals(""))
+        if (check.matches("[A-Za-z]*(\\s[A-Za-z]*){0,2}") || check.equals(""))
             return true;
-        else{
+        else {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("Invalid Name...!!");
             builder.setMessage("Only Alphabet are allowed..!!")
@@ -54,10 +55,10 @@ public class RegisterPage extends AppCompatActivity implements OnItemSelectedLis
         }
     }
 
-    boolean numberCheck(){
-        if(mobileNo.getText().toString().length() == 0 || mobileNo.getText().toString().length() == 10)
+    boolean numberCheck() {
+        if (mobileNo.getText().toString().length() == 0 || mobileNo.getText().toString().length() == 10)
             return true;
-        else{
+        else {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("Invalid Number...!!");
             builder.setMessage("Should contain 10 digits")
@@ -97,11 +98,15 @@ public class RegisterPage extends AppCompatActivity implements OnItemSelectedLis
 
     public void gotoFeedback1Page(View view) {
         if (nameCheck() && numberCheck()) {
-            ConnectDatabase connectDatabase = ConnectDatabase.getInstance();
-            connectDatabase.getParentData(spinner1.getSelectedItem().toString(), spinner2.getSelectedItem().toString(),
+            OfflineStoreHelper offlineStoreHelper = OfflineStoreHelper.getInstance(this);
+            offlineStoreHelper.insertParentData(spinner1.getSelectedItem().toString(), spinner2.getSelectedItem().toString(),
                     spinner4.getSelectedItem().toString(), name.getText().toString(), mobileNo.getText().toString(), spinner3.getSelectedItem().toString());
-            connectDatabase.pushParentData();
-            ConnectDatabase.getInstance().getStatus(this);
+
+//            ConnectDatabase connectDatabase = ConnectDatabase.getInstance();
+//            connectDatabase.getParentData(spinner1.getSelectedItem().toString(), spinner2.getSelectedItem().toString(),
+//                    spinner4.getSelectedItem().toString(), name.getText().toString(), mobileNo.getText().toString(), spinner3.getSelectedItem().toString());
+//            connectDatabase.pushParentData();
+//            ConnectDatabase.getInstance().getStatus(this);
             Intent nextPage = new Intent(RegisterPage.this, FeedBack1.class);
             startActivity(nextPage);
         }
