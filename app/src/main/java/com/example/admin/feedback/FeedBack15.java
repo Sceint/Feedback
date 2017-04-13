@@ -1,6 +1,8 @@
 package com.example.admin.feedback;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -18,10 +20,25 @@ public class FeedBack15 extends AppCompatActivity {
     }
 
     public void gotoRemarkPage(View view) {
-        ConnectDatabase connectDatabase = ConnectDatabase.getInstance();
-        connectDatabase.addData("Q15", ratingBar15.getRating());
-        connectDatabase.pushFeedbackData();
-        Intent nextPage = new Intent(FeedBack15.this, Remark.class);
-        startActivity(nextPage);
+        if (ratingBar15.getRating() != 0.0) {
+            OfflineStoreHelper offlineStoreHelper = OfflineStoreHelper.getInstance(this);
+            offlineStoreHelper.getRatingFromApp("Q15", Integer.parseInt(String.valueOf(Math.round(ratingBar15.getRating()))));
+            offlineStoreHelper.insertRatingData();
+
+            Intent nextPage = new Intent(FeedBack15.this, Remark.class);
+            startActivity(nextPage);
+        }
+        else{
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Not Rated");
+            builder.setMessage("Please Give a Rating.")
+                    .setCancelable(false)
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+            builder.create().show();
+        }
     }
 }
