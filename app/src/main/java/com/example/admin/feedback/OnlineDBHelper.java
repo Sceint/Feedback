@@ -97,7 +97,6 @@ public class OnlineDBHelper {
 
             @Override
             protected void onPostExecute(Void s) {
-                    UploadData.updateProgress();
             }
         }
         WriteData writeData = new WriteData();

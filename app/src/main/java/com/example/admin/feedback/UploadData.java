@@ -27,9 +27,8 @@ public class UploadData extends AppCompatActivity implements AdapterView.OnItemC
     private ActionBarDrawerToggle mDrawerToggle;
     private DrawerLayout mDrawerLayout;
     private String mActivityTitle;
-    private static ProgressBar progressBar;
-    private static int progress = 0;
-    private static TextView status;
+    private ProgressBar progressBar;
+    private TextView status;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,29 +115,25 @@ public class UploadData extends AppCompatActivity implements AdapterView.OnItemC
         return netInfo != null && netInfo.isConnected();
     }
 
-    public static void updateProgress() {
-        for (int i = 0; i < 5; i++) {
-            new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    progressBar.setProgress(progress += 10);
-                    status.setText("Uploading Parent Data");
-                }
-            }, 250 * i);
-        }
-        for (int i = 5; i < 10; i++) {
-            new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    progressBar.setProgress(progress += 10);
-                    status.setText("Uploading Rating Data");
-                }
-            }, 250 * i);
-        }
+    public void updateProgress() {
         new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
             @Override
             public void run() {
-                progressBar.setProgress(progress += 10);
+                progressBar.setProgress(40);
+                status.setText("Uploading Parent Data");
+            }
+        }, 1000);
+        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                progressBar.setProgress(80);
+                status.setText("Uploading Rating Data");
+            }
+        }, 2000);
+        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                progressBar.setProgress(100);
                 status.setText("Upload Complete");
             }
         }, 3000);
@@ -150,6 +145,7 @@ public class UploadData extends AppCompatActivity implements AdapterView.OnItemC
             OnlineDBHelper onlineDBHelper = new OnlineDBHelper();
             onlineDBHelper.uploadParentData(new CreateJSON().SQLite2JSON(offlineStoreHelper.getAllParentData()));
             onlineDBHelper.uploadRatingData(new CreateJSON().SQLite2JSON(offlineStoreHelper.getAllRatingData()));
+            updateProgress();
         } else {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("No Internet");

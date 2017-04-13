@@ -55,7 +55,6 @@ public class OfflineStoreHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("TRUNCATE TABLE IF EXISTS " + TABLE_NAME1);
         db.execSQL("TRUNCATE TABLE IF EXISTS " + TABLE_NAME2);
-        onCreate(db);
     }
 
     public boolean insertParentData(String branch, String year, String section, String name,
