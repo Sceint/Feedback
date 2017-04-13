@@ -1,7 +1,8 @@
 package com.example.admin.feedback;
 
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -17,13 +18,26 @@ public class FeedBack11 extends AppCompatActivity {
         setContentView(R.layout.activity_feed_back11);
         ratingBar11 = (RatingBar) findViewById(R.id.ratingBar);
     }
-    public void gotoFeedback12Page(View view){
-        OfflineStoreHelper offlineStoreHelper = OfflineStoreHelper.getInstance(this);
-        offlineStoreHelper.getRatingFromApp("Q11", Integer.parseInt(String.valueOf(Math.round(ratingBar11.getRating()))));
 
-//        ConnectDatabase connectDatabase = ConnectDatabase.getInstance();
-//        connectDatabase.addData("Q11",ratingBar11.getRating());
-        Intent nextPage=new Intent(FeedBack11.this,FeedBack12.class);
-        startActivity(nextPage);
+    public void gotoFeedback12Page(View view) {
+        if (ratingBar11.getRating() != 0.0) {
+            OfflineStoreHelper offlineStoreHelper = OfflineStoreHelper.getInstance(this);
+            offlineStoreHelper.getRatingFromApp("Q11", Integer.parseInt(String.valueOf(Math.round(ratingBar11.getRating()))));
+
+            Intent nextPage = new Intent(FeedBack11.this, FeedBack12.class);
+            startActivity(nextPage);
+        }
+        else{
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Not Rated");
+            builder.setMessage("Please Give a Rating.")
+                    .setCancelable(false)
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+            builder.create().show();
+        }
     }
 }

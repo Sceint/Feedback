@@ -1,18 +1,24 @@
 package com.example.admin.feedback;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 public class UploadData extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
@@ -21,6 +27,9 @@ public class UploadData extends AppCompatActivity implements AdapterView.OnItemC
     private ActionBarDrawerToggle mDrawerToggle;
     private DrawerLayout mDrawerLayout;
     private String mActivityTitle;
+    private static ProgressBar progressBar;
+    private static int progress = 0;
+    private static TextView status;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +38,8 @@ public class UploadData extends AppCompatActivity implements AdapterView.OnItemC
         mDrawerList = (ListView) findViewById(R.id.navList);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mActivityTitle = getTitle().toString();
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        status = (TextView) findViewById(R.id.status);
 
         addDrawerItems();
         setupDrawer();
@@ -102,10 +113,54 @@ public class UploadData extends AppCompatActivity implements AdapterView.OnItemC
         ConnectivityManager cm =
                 (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
-        return netInfo != null && netInfo.isConnectedOrConnecting();
+        return netInfo != null && netInfo.isConnected();
     }
 
-    public void startProcess(){
+    public static void updateProgress() {
+        for (int i = 0; i < 5; i++) {
+            new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    progressBar.setProgress(progress += 10);
+                    status.setText("Uploading Parent Data");
+                }
+            }, 250 * i);
+        }
+        for (int i = 5; i < 10; i++) {
+            new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    progressBar.setProgress(progress += 10);
+                    status.setText("Uploading Rating Data");
+                }
+            }, 250 * i);
+        }
+        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                progressBar.setProgress(progress += 10);
+                status.setText("Upload Complete");
+            }
+        }, 3000);
+    }
 
+    public void startProcess(View view) {
+        if (isOnline()) {
+            OfflineStoreHelper offlineStoreHelper = OfflineStoreHelper.getInstance(this);
+            OnlineDBHelper onlineDBHelper = new OnlineDBHelper();
+            onlineDBHelper.uploadParentData(new CreateJSON().SQLite2JSON(offlineStoreHelper.getAllParentData()));
+            onlineDBHelper.uploadRatingData(new CreateJSON().SQLite2JSON(offlineStoreHelper.getAllRatingData()));
+        } else {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("No Internet");
+            builder.setMessage("Please Connect to a Network.")
+                    .setCancelable(false)
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+            builder.create().show();
+        }
     }
 }

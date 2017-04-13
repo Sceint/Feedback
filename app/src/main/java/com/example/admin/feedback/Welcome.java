@@ -16,6 +16,8 @@ public class Welcome extends AppCompatActivity {
 
     public void onButtonPress(View v){
 //        ConnectDatabase.clear();
+        OfflineStoreHelper  offlineStoreHelper = OfflineStoreHelper.getInstance(this);
+        offlineStoreHelper.clear();
         Intent intent = new Intent(this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);

@@ -2,7 +2,6 @@ package com.example.admin.feedback;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -24,6 +23,7 @@ public class RegisterPage extends AppCompatActivity implements OnItemSelectedLis
         setContentView(R.layout.activity_register_page);
 
         name = (EditText) findViewById(R.id.name);
+        name.setInputType(8192);
         mobileNo = (EditText) findViewById(R.id.age);
 
         spinner1 = (Spinner) findViewById(R.id.branch);
@@ -37,26 +37,25 @@ public class RegisterPage extends AppCompatActivity implements OnItemSelectedLis
 
     boolean nameCheck() {
         String check = name.getText().toString();
-        if (check.matches("[A-Za-z]*(\\s[A-Za-z]*){0,2}") || check.equals(""))
+        if (check.matches("[A-Za-z]+(\\s[A-Za-z]+){0,2}"))
             return true;
         else {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("Invalid Name...!!");
-            builder.setMessage("Only Alphabet are allowed..!!")
+            builder.setMessage("Enter a valid Name..!!")
                     .setCancelable(false)
                     .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             dialog.cancel();
                         }
                     });
-            AlertDialog alert = builder.create();
-            alert.show();
+            builder.create().show();
             return false;
         }
     }
 
     boolean numberCheck() {
-        if (mobileNo.getText().toString().length() == 0 || mobileNo.getText().toString().length() == 10)
+        if (mobileNo.getText().toString().length() == 10)
             return true;
         else {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -97,18 +96,15 @@ public class RegisterPage extends AppCompatActivity implements OnItemSelectedLis
     }
 
     public void gotoFeedback1Page(View view) {
-        if (nameCheck() && numberCheck()) {
-            OfflineStoreHelper offlineStoreHelper = OfflineStoreHelper.getInstance(this);
-            offlineStoreHelper.insertParentData(spinner1.getSelectedItem().toString(), spinner2.getSelectedItem().toString(),
-                    spinner4.getSelectedItem().toString(), name.getText().toString(), mobileNo.getText().toString(), spinner3.getSelectedItem().toString());
+        if (nameCheck()) {
+            if (numberCheck()) {
+                OfflineStoreHelper offlineStoreHelper = OfflineStoreHelper.getInstance(this);
+                offlineStoreHelper.insertParentData(spinner1.getSelectedItem().toString(), spinner2.getSelectedItem().toString(),
+                        spinner4.getSelectedItem().toString(), name.getText().toString(), mobileNo.getText().toString(), spinner3.getSelectedItem().toString());
 
-//            ConnectDatabase connectDatabase = ConnectDatabase.getInstance();
-//            connectDatabase.getParentData(spinner1.getSelectedItem().toString(), spinner2.getSelectedItem().toString(),
-//                    spinner4.getSelectedItem().toString(), name.getText().toString(), mobileNo.getText().toString(), spinner3.getSelectedItem().toString());
-//            connectDatabase.pushParentData();
-//            ConnectDatabase.getInstance().getStatus(this);
-            Intent nextPage = new Intent(RegisterPage.this, FeedBack1.class);
-            startActivity(nextPage);
+                Intent nextPage = new Intent(RegisterPage.this, FeedBack1.class);
+                startActivity(nextPage);
+            }
         }
     }
 

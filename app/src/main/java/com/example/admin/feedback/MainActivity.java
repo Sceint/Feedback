@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener{
 
     private ListView mDrawerList;
@@ -99,7 +100,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
     public void gotoRegisterPage(View view) {
-        ConnectDatabase.getInstance();
         Intent nextPage = new Intent(MainActivity.this, RegisterPage.class);
         startActivity(nextPage);
     }
