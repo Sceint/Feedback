@@ -14,19 +14,20 @@ public class OfflineStoreHelper extends SQLiteOpenHelper {
     static OfflineStoreHelper offlineStoreHelper;
 
     private static final String DATABASE_NAME = "LocalDB.db";
-    private static final int DATABASE_VERSION = 1;
-    public static final String TABLE_NAME1 = "parentDetails";
-    public static final String TABLE_NAME2 = "ratingDetails";
-    public static final String DETAILS_BRANCH = "Branch";
-    public static final String DETAILS_YEAR = "Year";
-    public static final String DETAILS_SECTION = "Section";
-    public static final String DETAILS_NAME = "Name";
-    public static final String DETAILS_NUMBER = "Number";
-    public static final String DETAILS_OCCUPATION = "Occupation";
-    public static final String DETAILS_REMARK = "Remark";
+    private static final int DATABASE_VERSION = 2;
+    private static final String TABLE_NAME1 = "parentDetails";
+    private static final String TABLE_NAME2 = "ratingDetails";
+    private static final String DETAILS_BRANCH = "Branch";
+    private static final String DETAILS_YEAR = "Year";
+    private static final String DETAILS_SECTION = "Section";
+    private static final String DETAILS_NAME = "Name";
+    private static final String DETAILS_NUMBER = "Number";
+    private static final String DETAILS_OCCUPATION = "Occupation";
+    private static final String DETAILS_REMARK = "Remark";
+    private static final String DETAILS_DEVICE_ID = "DeviceID";
 
     private Map<String, Integer> rating;
-    String id;
+    String id, deviceID;
 
     public OfflineStoreHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -38,7 +39,7 @@ public class OfflineStoreHelper extends SQLiteOpenHelper {
         return offlineStoreHelper;
     }
 
-    public static void clear() {
+    static void clear() {
         offlineStoreHelper = null;
     }
 
@@ -46,34 +47,38 @@ public class OfflineStoreHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE " + TABLE_NAME1 + "(_id INTEGER PRIMARY KEY AUTOINCREMENT," + DETAILS_BRANCH +
                 " VARCHAR(3)," + DETAILS_YEAR + " VARCHAR(3)," + DETAILS_SECTION + " VARCHAR(1)," +
-                DETAILS_NAME + " TEXT," + DETAILS_NUMBER + " BIGINT, " + DETAILS_OCCUPATION + " TEXT, " + DETAILS_REMARK + " TEXT)");
-        db.execSQL("CREATE TABLE " + TABLE_NAME2 + "(_id INTEGER PRIMARY KEY, Q1 INTEGER, Q2 INTEGER, Q3 INTEGER, Q4 INTEGER, Q5 INTEGER, Q6 INTEGER," +
+                DETAILS_NAME + " TEXT," + DETAILS_NUMBER + " BIGINT, " + DETAILS_OCCUPATION + " TEXT, "
+                + DETAILS_REMARK + " TEXT, " + DETAILS_DEVICE_ID + " TEXT)");
+        db.execSQL("CREATE TABLE " + TABLE_NAME2 + "(_id TEXT PRIMARY KEY, Q1 INTEGER, Q2 INTEGER, Q3 INTEGER, Q4 INTEGER, Q5 INTEGER, Q6 INTEGER," +
                 " Q7 INTEGER, Q8 INTEGER, Q9 INTEGER, Q10 INTEGER, Q11 INTEGER, Q12 INTEGER, Q13 INTEGER, Q14 INTEGER, Q15 INTEGER, DateCreated DATETIME DEFAULT CURRENT_TIMESTAMP)");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("TRUNCATE TABLE IF EXISTS " + TABLE_NAME1);
-        db.execSQL("TRUNCATE TABLE IF EXISTS " + TABLE_NAME2);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME1);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME2);
+        onCreate(db);
     }
 
-    public boolean insertParentData(String branch, String year, String section, String name,
-                                    String number, String occupation) {
-            SQLiteDatabase db = getWritableDatabase();
-            ContentValues contentValues = new ContentValues();
-            contentValues.put(DETAILS_BRANCH, branch);
-            contentValues.put(DETAILS_YEAR, year);
-            contentValues.put(DETAILS_SECTION, section);
-            contentValues.put(DETAILS_NAME, name);
-            contentValues.put(DETAILS_NUMBER, number);
-            contentValues.put(DETAILS_OCCUPATION, occupation);
-            db.insert(TABLE_NAME1, null, contentValues);
-            id = getId(branch, year, section, name, number, occupation);
-            return true;
+    boolean insertParentData(String branch, String year, String section, String name,
+                             String number, String occupation, String deviceID) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(DETAILS_BRANCH, branch);
+        contentValues.put(DETAILS_YEAR, year);
+        contentValues.put(DETAILS_SECTION, section);
+        contentValues.put(DETAILS_NAME, name);
+        contentValues.put(DETAILS_NUMBER, number);
+        contentValues.put(DETAILS_OCCUPATION, occupation);
+        db.insert(TABLE_NAME1, null, contentValues);
+        id = getId(branch, year, section, name, number, occupation);
+        this.deviceID = id + "-" + deviceID;
+        db.execSQL("UPDATE `" + TABLE_NAME1 + "` SET `DeviceID`=\'" + this.deviceID + "\' WHERE `_id`=\'" + id +"\'");
+        return true;
     }
 
-    public String getId(String branch, String year, String section, String name,
-                        String number, String occupation) {
+    private String getId(String branch, String year, String section, String name,
+                         String number, String occupation) {
         Cursor res;
         try {
             SQLiteDatabase db = this.getReadableDatabase();
@@ -91,7 +96,7 @@ public class OfflineStoreHelper extends SQLiteOpenHelper {
         return "No id";
     }
 
-    public Cursor getAllParentData() {
+    Cursor getAllParentData() {
         SQLiteDatabase db = this.getReadableDatabase();
         return db.rawQuery("SELECT * FROM " + TABLE_NAME1, null);
     }
@@ -102,22 +107,22 @@ public class OfflineStoreHelper extends SQLiteOpenHelper {
         rating.put(q, r);
     }
 
-    public boolean insertRatingData() {
+    boolean insertRatingData() {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put("_id", id);
+        contentValues.put("_id", deviceID);
         for (Map.Entry<String, Integer> entry : rating.entrySet())
             contentValues.put(entry.getKey(), entry.getValue());
         db.insert(TABLE_NAME2, null, contentValues);
         return true;
     }
 
-    public Cursor getAllRatingData() {
+    Cursor getAllRatingData() {
         SQLiteDatabase db = this.getReadableDatabase();
         return db.rawQuery("SELECT * FROM " + TABLE_NAME2, null);
     }
 
-    public boolean insertRemark(String remark) {
+    boolean insertRemark(String remark) {
         try {
             SQLiteDatabase db = getWritableDatabase();
             ContentValues contentValues = new ContentValues();

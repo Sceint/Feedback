@@ -10,8 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="20dp"
-        android:background="@color/colorPrimary"
-        android:backgroundTint="#005c99"
         tools:context="com.example.admin.feedback.MainActivity">
 
 

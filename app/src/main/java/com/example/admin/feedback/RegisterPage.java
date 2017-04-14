@@ -1,7 +1,9 @@
 package com.example.admin.feedback;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.provider.Settings;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -95,12 +97,18 @@ public class RegisterPage extends AppCompatActivity implements OnItemSelectedLis
     public void onNothingSelected(AdapterView<?> parent) {
     }
 
+    public String getDeviceUniqueID(Activity activity){
+        String device_unique_id = Settings.Secure.getString(activity.getContentResolver(),
+                Settings.Secure.ANDROID_ID);
+        return device_unique_id;
+    }
+
     public void gotoFeedback1Page(View view) {
         if (nameCheck()) {
             if (numberCheck()) {
                 OfflineStoreHelper offlineStoreHelper = OfflineStoreHelper.getInstance(this);
                 offlineStoreHelper.insertParentData(spinner1.getSelectedItem().toString(), spinner2.getSelectedItem().toString(),
-                        spinner4.getSelectedItem().toString(), name.getText().toString(), mobileNo.getText().toString(), spinner3.getSelectedItem().toString());
+                        spinner4.getSelectedItem().toString(), name.getText().toString(), mobileNo.getText().toString(), spinner3.getSelectedItem().toString(),getDeviceUniqueID(this));
 
                 Intent nextPage = new Intent(RegisterPage.this, FeedBack1.class);
                 startActivity(nextPage);
