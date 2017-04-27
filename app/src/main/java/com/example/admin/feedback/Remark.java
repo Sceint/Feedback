@@ -15,6 +15,7 @@ public class Remark extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_remark);
         remark = (EditText) findViewById(R.id.remark);
+        remark.setInputType(16384);
     }
 
     public void gotoFinishPage(View view) {

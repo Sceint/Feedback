@@ -37,9 +37,85 @@ public class RegisterPage extends AppCompatActivity implements OnItemSelectedLis
         spinner1.setOnItemSelectedListener(this);
     }
 
+    boolean validationCheck(){
+        return checkBranch() && checkSection() && checkYear() && nameCheck() && numberCheck() && checkOccpuation();
+    }
+
+    boolean checkBranch(){
+        if(!spinner1.getSelectedItem().toString().equals("SELECT"))
+            return true;
+        else{
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Select Branch");
+            builder.setMessage("Please select a Branch")
+                    .setCancelable(false)
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+            builder.create().show();
+            return false;
+        }
+    }
+
+    boolean checkSection(){
+        if(!spinner2.getSelectedItem().toString().equals("SELECT"))
+            return true;
+        else{
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Select Section");
+            builder.setMessage("Please select a Section")
+                    .setCancelable(false)
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+            builder.create().show();
+            return false;
+        }
+    }
+
+    boolean checkYear(){
+        if(!spinner4.getSelectedItem().toString().equals("SELECT"))
+            return true;
+        else{
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Select Year");
+            builder.setMessage("Please select a Year")
+                    .setCancelable(false)
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+            builder.create().show();
+            return false;
+        }
+    }
+
+    boolean checkOccpuation(){
+        if(!spinner3.getSelectedItem().toString().equals("SELECT"))
+            return true;
+        else{
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Select Occpuation");
+            builder.setMessage("Please select a Occpuation")
+                    .setCancelable(false)
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+            builder.create().show();
+            return false;
+        }
+    }
+
     boolean nameCheck() {
         String check = name.getText().toString();
-        if (check.matches("[A-Za-z]+(\\s[A-Za-z]+){0,2}"))
+        if (check.matches("[A-Za-z]+(\\s[A-Za-z]+){0,2}") || check.length() == 0)
             return true;
         else {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -57,12 +133,15 @@ public class RegisterPage extends AppCompatActivity implements OnItemSelectedLis
     }
 
     boolean numberCheck() {
-        if (mobileNo.getText().toString().length() == 10)
+        String num = mobileNo.getText().toString();
+        if (num.length() == 0)
+            return true;
+        else if (num.length() == 10 && (num.startsWith("7") || num.startsWith("8") || num.startsWith("9")))
             return true;
         else {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("Invalid Number...!!");
-            builder.setMessage("Should contain 10 digits")
+            builder.setMessage("Enter a valid 10 digit number")
                     .setCancelable(false)
                     .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
@@ -97,22 +176,24 @@ public class RegisterPage extends AppCompatActivity implements OnItemSelectedLis
     public void onNothingSelected(AdapterView<?> parent) {
     }
 
-    public String getDeviceUniqueID(Activity activity){
-        String device_unique_id = Settings.Secure.getString(activity.getContentResolver(),
+    public String getDeviceUniqueID(Activity activity) {
+        return Settings.Secure.getString(activity.getContentResolver(),
                 Settings.Secure.ANDROID_ID);
-        return device_unique_id;
     }
 
     public void gotoFeedback1Page(View view) {
-        if (nameCheck()) {
-            if (numberCheck()) {
+        try {
+            if (validationCheck()) {
                 OfflineStoreHelper offlineStoreHelper = OfflineStoreHelper.getInstance(this);
                 offlineStoreHelper.insertParentData(spinner1.getSelectedItem().toString(), spinner2.getSelectedItem().toString(),
-                        spinner4.getSelectedItem().toString(), name.getText().toString(), mobileNo.getText().toString(), spinner3.getSelectedItem().toString(),getDeviceUniqueID(this));
+                        spinner4.getSelectedItem().toString(), name.getText().toString(), mobileNo.getText().toString(),
+                        spinner3.getSelectedItem().toString(), getDeviceUniqueID(this));
 
                 Intent nextPage = new Intent(RegisterPage.this, FeedBack1.class);
                 startActivity(nextPage);
             }
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
 

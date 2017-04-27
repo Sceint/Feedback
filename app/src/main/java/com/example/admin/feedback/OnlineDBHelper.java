@@ -1,6 +1,9 @@
 package com.example.admin.feedback;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.os.AsyncTask;
+import android.support.v7.app.AlertDialog;
 
 import org.json.JSONArray;
 
@@ -15,20 +18,20 @@ import java.net.URL;
 
 public class OnlineDBHelper {
 
-    void uploadParentData(JSONArray jsonArray) {
-        uploadData(jsonArray, "JSON2DBParent.php");
+    void uploadParentData(JSONArray jsonArray, Context context) {
+        uploadData(jsonArray, "JSON2DBParent.php", context);
     }
 
-    void uploadRatingData(JSONArray jsonArray) {
-        uploadData(jsonArray, "JSON2DBRating.php");
+    void uploadRatingData(JSONArray jsonArray, Context context) {
+        uploadData(jsonArray, "JSON2DBRating.php", context);
     }
 
-    void uploadData(JSONArray jsonArray, final String url){
-        class WriteData extends AsyncTask<JSONArray, Void, Void> {
+    void uploadData(JSONArray jsonArray, final String url, final Context context) {
+        class WriteData extends AsyncTask<JSONArray, Void, String> {
             String login_url = "https://sceint.000webhostapp.com/";
 
             @Override
-            protected Void doInBackground(JSONArray... resultArray) {
+            protected String doInBackground(JSONArray... resultArray) {
                 try {
                     URL url = new URL(login_url);
                     HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
@@ -52,10 +55,27 @@ public class OnlineDBHelper {
                     bufferedReader.close();
                     inputStream.close();
                     httpURLConnection.disconnect();
+                    return sb.toString();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
                 return null;
+            }
+
+            @Override
+            protected void onPostExecute(String s) {
+                if (!s.equals("Successful")) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                    builder.setTitle("Cannot Upload");
+                    builder.setMessage("Data could not be uploaded due to Network error.")
+                            .setCancelable(false)
+                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.cancel();
+                                }
+                            });
+                    builder.create().show();
+                }
             }
 
             @Override

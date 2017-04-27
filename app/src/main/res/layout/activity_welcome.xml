@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Thank you for your valuable feedback!!"
-        android:textColor="@color/colorPrimaryDark"
+        android:textColor="#FF4A4A"
         android:layout_marginTop="34dp"
         android:id="@+id/textView"
         android:textAppearance="@style/TextAppearance.AppCompat.Large.Inverse"
@@ -24,9 +24,9 @@
         android:id="@+id/finish"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="112dp"
+        android:layout_marginBottom="53dp"
         android:onClick="onButtonPress"
-        android:text="Take another Feedback" />
+        android:text="Take another Feedback"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>

@@ -4,6 +4,7 @@
     <string name="app_name">Parent Feedback</string>
 
     <string-array name="branch">
+        <item>SELECT</item>
         <item>CSE</item>
         <item>IT</item>
         <item>ECE</item>
@@ -11,6 +12,7 @@
     </string-array>
 
     <string-array name="section1">
+        <item>SELECT</item>
         <item>A</item>
         <item>B</item>
         <item>C</item>
@@ -21,15 +23,18 @@
     </string-array>
 
     <string-array name="section2">
+        <item>SELECT</item>
         <item>A</item>
     </string-array>
 
     <string-array name="section3">
+        <item>SELECT</item>
         <item>A</item>
         <item>B</item>
     </string-array>
 
     <string-array name="year">
+        <item>SELECT</item>
         <item>I</item>
         <item>II</item>
         <item>III</item>
@@ -37,6 +42,7 @@
     </string-array>
 
     <string-array name="occupation">
+        <item>SELECT</item>
         <item>Employee</item>
         <item>Self Employed</item>
         <item>Others</item>

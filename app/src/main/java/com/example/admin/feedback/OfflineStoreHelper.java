@@ -14,7 +14,7 @@ public class OfflineStoreHelper extends SQLiteOpenHelper {
     static OfflineStoreHelper offlineStoreHelper;
 
     private static final String DATABASE_NAME = "LocalDB.db";
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 5;
     private static final String TABLE_NAME1 = "parentDetails";
     private static final String TABLE_NAME2 = "ratingDetails";
     private static final String DETAILS_BRANCH = "Branch";
@@ -27,7 +27,7 @@ public class OfflineStoreHelper extends SQLiteOpenHelper {
     private static final String DETAILS_DEVICE_ID = "DeviceID";
 
     private Map<String, Integer> rating;
-    String id, deviceID;
+    String id, branch, deviceID;
 
     public OfflineStoreHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -46,11 +46,13 @@ public class OfflineStoreHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE " + TABLE_NAME1 + "(_id INTEGER PRIMARY KEY AUTOINCREMENT," + DETAILS_BRANCH +
-                " VARCHAR(3)," + DETAILS_YEAR + " VARCHAR(3)," + DETAILS_SECTION + " VARCHAR(1)," +
+                " VARCHAR(3)," + DETAILS_SECTION + " VARCHAR(1)," + DETAILS_YEAR + " VARCHAR(3)," +
                 DETAILS_NAME + " TEXT," + DETAILS_NUMBER + " BIGINT, " + DETAILS_OCCUPATION + " TEXT, "
-                + DETAILS_REMARK + " TEXT, " + DETAILS_DEVICE_ID + " TEXT)");
-        db.execSQL("CREATE TABLE " + TABLE_NAME2 + "(_id TEXT PRIMARY KEY, Q1 INTEGER, Q2 INTEGER, Q3 INTEGER, Q4 INTEGER, Q5 INTEGER, Q6 INTEGER," +
-                " Q7 INTEGER, Q8 INTEGER, Q9 INTEGER, Q10 INTEGER, Q11 INTEGER, Q12 INTEGER, Q13 INTEGER, Q14 INTEGER, Q15 INTEGER, DateCreated DATETIME DEFAULT CURRENT_TIMESTAMP)");
+                + DETAILS_REMARK + " TEXT, " + DETAILS_DEVICE_ID + " VARCHAR(25)) ");
+        db.execSQL("CREATE TABLE " + TABLE_NAME2 + "(_id INTEGER, Branch VARCHAR(3), Q1 INTEGER, Q2 INTEGER, " +
+                "Q3 INTEGER, Q4 INTEGER, Q5 INTEGER, Q6 INTEGER, Q7 INTEGER, Q8 INTEGER, Q9 INTEGER, " +
+                "Q10 INTEGER, Q11 INTEGER, Q12 INTEGER, Q13 INTEGER, Q14 INTEGER, Q15 INTEGER, DateCreated DATETIME DEFAULT CURRENT_TIMESTAMP, "
+                + DETAILS_DEVICE_ID + " VARCHAR(25))");
     }
 
     @Override
@@ -71,20 +73,22 @@ public class OfflineStoreHelper extends SQLiteOpenHelper {
         contentValues.put(DETAILS_NUMBER, number);
         contentValues.put(DETAILS_OCCUPATION, occupation);
         db.insert(TABLE_NAME1, null, contentValues);
-        id = getId(branch, year, section, name, number, occupation);
-        this.deviceID = id + "-" + deviceID;
-        db.execSQL("UPDATE `" + TABLE_NAME1 + "` SET `DeviceID`=\'" + this.deviceID + "\' WHERE `_id`=\'" + id +"\'");
+        try {
+            id = getLatestId();
+            this.deviceID = id + "-" + deviceID;
+            db.execSQL("UPDATE `" + TABLE_NAME1 + "` SET `DeviceID`=\'" + this.deviceID + "\' WHERE `_id`=\'" + id + "\'");
+            this.branch = branch;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         return true;
     }
 
-    private String getId(String branch, String year, String section, String name,
-                         String number, String occupation) {
+    private String getLatestId() {
         Cursor res;
         try {
             SQLiteDatabase db = this.getReadableDatabase();
-            res = db.rawQuery("SELECT _id FROM " + TABLE_NAME1 + " WHERE " + DETAILS_BRANCH +
-                    " = \'" + branch + "\' AND " + DETAILS_YEAR + " = \'" + year + "\' AND " + DETAILS_SECTION + " = \'" + section + "\' AND " +
-                    DETAILS_NAME + " = \'" + name + "\' AND " + DETAILS_NUMBER + " = \'" + number + "\' AND " + DETAILS_OCCUPATION + " = \'" + occupation + "\'", null);
+            res = db.rawQuery("SELECT last_insert_rowid()", null);
             if (res.getColumnCount() == 1) {
                 res.moveToNext();
                 return res.getString(0);
@@ -110,7 +114,9 @@ public class OfflineStoreHelper extends SQLiteOpenHelper {
     boolean insertRatingData() {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put("_id", deviceID);
+        contentValues.put("_id", id);
+        contentValues.put(DETAILS_DEVICE_ID, deviceID);
+        contentValues.put("Branch", branch);
         for (Map.Entry<String, Integer> entry : rating.entrySet())
             contentValues.put(entry.getKey(), entry.getValue());
         db.insert(TABLE_NAME2, null, contentValues);

@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.RatingBar;
 
+import java.security.spec.ECField;
+
 public class FeedBack2 extends AppCompatActivity {
 
     private RatingBar ratingBar2;
@@ -19,6 +21,7 @@ public class FeedBack2 extends AppCompatActivity {
         ratingBar2 = (RatingBar) findViewById(R.id.ratingBar);
     }
     public void gotoFeedback3Page(View view){
+        try{
         if (ratingBar2.getRating() != 0.0) {
             OfflineStoreHelper offlineStoreHelper = OfflineStoreHelper.getInstance(this);
             offlineStoreHelper.getRatingFromApp("Q2", Integer.parseInt(String.valueOf(Math.round(ratingBar2.getRating()))));
@@ -37,6 +40,9 @@ public class FeedBack2 extends AppCompatActivity {
                         }
                     });
             builder.create().show();
+        }}
+        catch (Exception e){
+            e.printStackTrace();
         }
     }
 }
