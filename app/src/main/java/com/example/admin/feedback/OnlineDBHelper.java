@@ -17,15 +17,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class OnlineDBHelper {
-
-    void uploadParentData(JSONArray jsonArray, Context context) {
-        uploadData(jsonArray, "JSON2DBParent.php", context);
-    }
-
-    void uploadRatingData(JSONArray jsonArray, Context context) {
-        uploadData(jsonArray, "JSON2DBRating.php", context);
-    }
-
     void uploadData(JSONArray jsonArray, final String url, final Context context) {
         class WriteData extends AsyncTask<JSONArray, Void, String> {
             String login_url = "https://sceint.000webhostapp.com/";

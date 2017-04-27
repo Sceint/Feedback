@@ -143,8 +143,8 @@ public class UploadData extends AppCompatActivity implements AdapterView.OnItemC
         if (isOnline()) {
             OfflineStoreHelper offlineStoreHelper = OfflineStoreHelper.getInstance(this);
             OnlineDBHelper onlineDBHelper = new OnlineDBHelper();
-            onlineDBHelper.uploadParentData(new CreateJSON().SQLite2JSON(offlineStoreHelper.getAllParentData()), UploadData.this);
-            onlineDBHelper.uploadRatingData(new CreateJSON().SQLite2JSON(offlineStoreHelper.getAllRatingData()), UploadData.this);
+            onlineDBHelper.uploadData(new CreateJSON().SQLite2JSON(offlineStoreHelper.getAllParentData()), "JSON2DBParent.php", UploadData.this);
+            onlineDBHelper.uploadData(new CreateJSON().SQLite2JSON(offlineStoreHelper.getAllRatingData()), "JSON2DBRating.php", UploadData.this);
             updateProgress();
         } else {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
