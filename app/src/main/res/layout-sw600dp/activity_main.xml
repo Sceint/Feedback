@@ -19,15 +19,15 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="38dp"
-            android:elegantTextHeight="true"
+            android:layout_marginTop="94dp"
             android:shadowColor="#B2DFDB"
             android:shadowDx="1"
             android:shadowDy="1"
             android:shadowRadius="3"
             android:text="Welcome"
             android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-            android:textColor="#E1BEE7" />
+            android:textColor="#E1BEE7"
+            android:textSize="75sp" />
 
         <Button
             android:id="@+id/button"

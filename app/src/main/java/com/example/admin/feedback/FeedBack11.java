@@ -26,8 +26,7 @@ public class FeedBack11 extends AppCompatActivity {
 
             Intent nextPage = new Intent(FeedBack11.this, FeedBack12.class);
             startActivity(nextPage);
-        }
-        else{
+        } else {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("Not Rated");
             builder.setMessage("Please Give a Rating.")

@@ -18,15 +18,15 @@ public class FeedBack5 extends AppCompatActivity {
         setContentView(R.layout.activity_feed_back5);
         ratingBar5 = (RatingBar) findViewById(R.id.ratingBar);
     }
-    public void gotoFeedback6Page(View view){
+
+    public void gotoFeedback6Page(View view) {
         if (ratingBar5.getRating() != 0.0) {
             OfflineStoreHelper offlineStoreHelper = OfflineStoreHelper.getInstance(this);
             offlineStoreHelper.getRatingFromApp("Q5", Integer.parseInt(String.valueOf(Math.round(ratingBar5.getRating()))));
 
             Intent nextPage = new Intent(FeedBack5.this, FeedBack6.class);
             startActivity(nextPage);
-        }
-        else{
+        } else {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("Not Rated");
             builder.setMessage("Please Give a Rating.")

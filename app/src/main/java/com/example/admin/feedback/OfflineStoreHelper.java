@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import org.json.JSONArray;
+
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -14,7 +16,7 @@ public class OfflineStoreHelper extends SQLiteOpenHelper {
     static OfflineStoreHelper offlineStoreHelper;
 
     private static final String DATABASE_NAME = "LocalDB.db";
-    private static final int DATABASE_VERSION = 5;
+    private static final int DATABASE_VERSION = 8;
     private static final String TABLE_NAME1 = "parentDetails";
     private static final String TABLE_NAME2 = "ratingDetails";
     private static final String DETAILS_BRANCH = "Branch";
@@ -27,9 +29,9 @@ public class OfflineStoreHelper extends SQLiteOpenHelper {
     private static final String DETAILS_DEVICE_ID = "DeviceID";
 
     private Map<String, Integer> rating;
-    String id, branch, deviceID;
+    private String id, branch, deviceID;
 
-    public OfflineStoreHelper(Context context) {
+    private OfflineStoreHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
@@ -45,11 +47,11 @@ public class OfflineStoreHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE " + TABLE_NAME1 + "(_id INTEGER PRIMARY KEY AUTOINCREMENT," + DETAILS_BRANCH +
+        db.execSQL("CREATE TABLE IF NOT EXISTS " + TABLE_NAME1 + "(_id INTEGER PRIMARY KEY AUTOINCREMENT," + DETAILS_BRANCH +
                 " VARCHAR(3)," + DETAILS_SECTION + " VARCHAR(1)," + DETAILS_YEAR + " VARCHAR(3)," +
                 DETAILS_NAME + " TEXT," + DETAILS_NUMBER + " BIGINT, " + DETAILS_OCCUPATION + " TEXT, "
                 + DETAILS_REMARK + " TEXT, " + DETAILS_DEVICE_ID + " VARCHAR(25)) ");
-        db.execSQL("CREATE TABLE " + TABLE_NAME2 + "(_id INTEGER, Branch VARCHAR(3), Q1 INTEGER, Q2 INTEGER, " +
+        db.execSQL("CREATE TABLE IF NOT EXISTS " + TABLE_NAME2 + "(_id INTEGER, Branch VARCHAR(3), Q1 INTEGER, Q2 INTEGER, " +
                 "Q3 INTEGER, Q4 INTEGER, Q5 INTEGER, Q6 INTEGER, Q7 INTEGER, Q8 INTEGER, Q9 INTEGER, " +
                 "Q10 INTEGER, Q11 INTEGER, Q12 INTEGER, Q13 INTEGER, Q14 INTEGER, Q15 INTEGER, DateCreated DATETIME DEFAULT CURRENT_TIMESTAMP, "
                 + DETAILS_DEVICE_ID + " VARCHAR(25))");
@@ -57,8 +59,8 @@ public class OfflineStoreHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME1);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME2);
+        //db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME1);
+        //db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME2);
         onCreate(db);
     }
 
@@ -78,7 +80,7 @@ public class OfflineStoreHelper extends SQLiteOpenHelper {
             this.deviceID = id + "-" + deviceID;
             db.execSQL("UPDATE `" + TABLE_NAME1 + "` SET `DeviceID`=\'" + this.deviceID + "\' WHERE `_id`=\'" + id + "\'");
             this.branch = branch;
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return true;
@@ -93,6 +95,7 @@ public class OfflineStoreHelper extends SQLiteOpenHelper {
                 res.moveToNext();
                 return res.getString(0);
             }
+            res.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -129,14 +132,23 @@ public class OfflineStoreHelper extends SQLiteOpenHelper {
     }
 
     boolean insertRemark(String remark) {
-        try {
-            SQLiteDatabase db = getWritableDatabase();
-            ContentValues contentValues = new ContentValues();
-            contentValues.put("Remark", remark);
-            db.update(TABLE_NAME1, contentValues, "_id = ?", new String[]{id});
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("Remark", remark);
+        db.update(TABLE_NAME1, contentValues, "_id = ?", new String[]{id});
         return true;
+    }
+
+    JSONArray getAverages() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        return new CreateJSON().SQLite2JSON(db.rawQuery("SELECT AVG(Q1), AVG(Q2), AVG(Q3), AVG(Q4), AVG(Q5), " +
+                "AVG(Q6), AVG(Q7), AVG(Q8), AVG(Q9), AVG(Q10), AVG(Q11), AVG(Q12), AVG(Q13), AVG(Q14), " +
+                "AVG(Q15) FROM " + TABLE_NAME2, null));
+    }
+
+    JSONArray getRatingOfQuestion(String qNo) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        return new CreateJSON().SQLite2JSON(db.rawQuery("SELECT `" + qNo + "`, COUNT(*) FROM `" + TABLE_NAME2 +
+                "` GROUP BY `" + qNo + "`", null));
     }
 }

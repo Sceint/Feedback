@@ -6,8 +6,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class CreateJSON {
-    JSONArray SQLite2JSON(Cursor cursor){
+class CreateJSON {
+    JSONArray SQLite2JSON(Cursor cursor) {
         JSONArray resultArray = new JSONArray();
 
         int columnCount = cursor.getColumnCount();
@@ -21,6 +21,6 @@ public class CreateJSON {
                 }
             resultArray.put(row);
         }
-        return  resultArray;
+        return resultArray;
     }
 }

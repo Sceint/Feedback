@@ -11,13 +11,10 @@ public class Welcome extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
-//        ConnectDatabase.getInstance().getStatus(this);
     }
 
     public void onButtonPress(View v){
-//        ConnectDatabase.clear();
-        OfflineStoreHelper  offlineStoreHelper = OfflineStoreHelper.getInstance(this);
-        offlineStoreHelper.clear();
+        OfflineStoreHelper.clear();
         Intent intent = new Intent(this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);

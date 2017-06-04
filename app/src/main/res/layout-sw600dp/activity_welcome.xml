@@ -11,21 +11,21 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="108dp"
         android:text="Thank you for your valuable feedback!!"
         android:textAppearance="@style/TextAppearance.AppCompat.Large.Inverse"
         android:textColor="#FF4A4A"
-        android:textSize="30sp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:textSize="30sp" />
 
     <Button
         android:id="@+id/finish"
         android:layout_width="250dp"
         android:layout_height="70dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
         android:layout_marginBottom="78dp"
         android:onClick="onButtonPress"
-        android:text="Take another Feedback"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:text="Take another Feedback" />
 </RelativeLayout>

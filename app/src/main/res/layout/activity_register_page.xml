@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_height="match_parent"
     android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:fillViewport="true">
+
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/activity_main"
@@ -12,24 +13,23 @@
         android:paddingLeft="20dp"
         tools:context="com.example.admin.feedback.MainActivity">
 
-
         <TextView
             android:id="@+id/textView1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="38dp"
-            android:text="COURSE : B. TECH"
             android:layout_alignParentTop="true"
-            android:layout_toStartOf="@+id/age" />
+            android:layout_marginTop="38dp"
+            android:layout_toStartOf="@+id/age"
+            android:text="COURSE : B. TECH" />
 
         <TextView
             android:id="@+id/textView2"
             android:layout_width="75dp"
             android:layout_height="wrap_content"
-            android:text="BRANCH"
-            android:layout_marginTop="31dp"
+            android:layout_alignParentStart="true"
             android:layout_below="@+id/textView1"
-            android:layout_alignParentStart="true" />
+            android:layout_marginTop="31dp"
+            android:text="BRANCH" />
 
         <Spinner
             android:id="@+id/branch"
@@ -55,7 +55,7 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/textView4"
             android:layout_alignStart="@+id/branch"
-            android:entries="@array/section1"/>
+            android:entries="@array/section1" />
 
         <EditText
             android:id="@+id/name"
@@ -66,40 +66,40 @@
             android:layout_marginTop="16dp"
             android:ems="10"
             android:hint="Enter Here(Optional)"
+            android:inputType="textPersonName"
             android:maxLength="30"
-            android:textSize="15sp"
-            android:inputType="textPersonName" />
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/textView5"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
-            android:text="NAME"
             android:layout_alignBaseline="@+id/name"
             android:layout_alignBottom="@+id/name"
-            android:layout_alignStart="@+id/textView8" />
+            android:layout_alignStart="@+id/textView8"
+            android:text="NAME" />
 
         <TextView
             android:id="@+id/textView6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            android:text="MOBILE NO"
+            android:layout_alignStart="@+id/textView5"
             android:layout_below="@+id/textView5"
-            android:layout_alignStart="@+id/textView5" />
+            android:layout_marginTop="50dp"
+            android:text="MOBILE NO" />
 
         <EditText
             android:id="@+id/age"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Enter Here(Optional)"
-            android:maxLength="10"
-            android:textSize="15sp"
-            android:inputType="number"
             android:layout_alignBaseline="@+id/textView6"
             android:layout_alignBottom="@+id/textView6"
-            android:layout_alignEnd="@+id/name" />
+            android:layout_alignEnd="@+id/name"
+            android:ems="10"
+            android:hint="Enter Here(Optional)"
+            android:inputType="number"
+            android:maxLength="10"
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/textView7"
@@ -122,12 +122,12 @@
             android:id="@+id/button2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="gotoFeedback1Page"
-            android:text="Register"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
             android:layout_marginBottom="20dp"
             android:foregroundGravity="bottom"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true" />
+            android:onClick="gotoFeedback1Page"
+            android:text="Register" />
 
         <TextView
             android:id="@+id/textView8"
@@ -142,9 +142,9 @@
             android:id="@+id/year"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:entries="@array/year"
             android:layout_alignBaseline="@+id/textView8"
             android:layout_alignBottom="@+id/textView8"
-            android:layout_alignEnd="@+id/name" />
+            android:layout_alignEnd="@+id/name"
+            android:entries="@array/year" />
     </RelativeLayout>
 </ScrollView>

@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context="com.example.admin.feedback.MainActivity">
 
-
     <TextView
         android:id="@+id/textView6"
         android:layout_width="150dp"
@@ -114,7 +113,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="34dp"
         android:onClick="gotoFeedback13Page"
-        android:text="NEXT" />
+        android:text="@string/next" />
 
     <TextView
         android:id="@+id/textView9"

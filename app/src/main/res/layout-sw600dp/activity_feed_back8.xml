@@ -6,148 +6,147 @@
     android:layout_height="match_parent"
     tools:context="com.example.admin.feedback.MainActivity">
 
-
     <TextView
-        android:text="QUESTION 8:"
-        android:textSize="25sp"
-        android:padding="10dp"
-        android:layout_width="match_parent"
         android:id="@+id/textView6"
+        android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
         android:layout_marginStart="14dp"
-        android:layout_marginTop="20dp" />
+        android:layout_marginTop="20dp"
+        android:padding="10dp"
+        android:text="QUESTION 8:"
+        android:textSize="25sp" />
 
     <TextView
-        android:layout_height="wrap_content"
         android:id="@+id/textView7"
-        android:text="@string/Q8"
-        android:textSize="30sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/textView6"
+        android:layout_below="@+id/textView6"
         android:lines="3"
         android:padding="15dp"
-        android:layout_width="match_parent"
-        android:layout_below="@+id/textView6"
-        android:layout_alignStart="@+id/textView6" />
+        android:text="@string/Q8"
+        android:textSize="30sp" />
 
     <TextView
-        android:text="@string/rating1"
-        android:textSize="25sp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
         android:id="@+id/textView8"
         android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/ratingBar"
+        android:layout_marginEnd="13dp"
+        android:layout_marginTop="25dp"
         android:layout_toStartOf="@+id/button2"
-        android:layout_marginEnd="13dp" />
+        android:text="@string/rating1"
+        android:textSize="25sp" />
 
     <TextView
-        android:text="@string/rating2"
-        android:textSize="25sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/textView10"
-        android:layout_below="@+id/textView8"
-        android:layout_alignStart="@+id/textView8"
-        android:layout_marginTop="12dp" />
-
-    <TextView
-        android:text="@string/remark2"
-        android:textSize="25sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/textView8"
+        android:layout_below="@+id/textView8"
+        android:layout_marginTop="12dp"
+        android:text="@string/rating2"
+        android:textSize="25sp" />
+
+    <TextView
         android:id="@+id/textView11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/textView10"
         android:layout_alignBottom="@+id/textView10"
-        android:layout_alignStart="@+id/textView9" />
+        android:layout_alignStart="@+id/textView9"
+        android:text="@string/remark2"
+        android:textSize="25sp" />
 
     <TextView
-        android:text="@string/rating3"
-        android:textSize="25sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
         android:id="@+id/textView12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/textView10"
         android:layout_below="@+id/textView10"
-        android:layout_alignStart="@+id/textView10" />
+        android:layout_marginTop="12dp"
+        android:text="@string/rating3"
+        android:textSize="25sp" />
 
     <TextView
-        android:text="@string/remark3"
-        android:textSize="25sp"
+        android:id="@+id/textView13"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/textView12"
         android:layout_alignStart="@+id/textView11"
-        android:id="@+id/textView13" />
+        android:layout_alignTop="@+id/textView12"
+        android:text="@string/remark3"
+        android:textSize="25sp" />
 
     <TextView
-        android:text="@string/rating4"
-        android:textSize="25sp"
+        android:id="@+id/textView14"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView12"
         android:layout_alignStart="@+id/textView12"
+        android:layout_below="@+id/textView12"
         android:layout_marginTop="12dp"
-        android:id="@+id/textView14" />
+        android:text="@string/rating4"
+        android:textSize="25sp" />
 
     <TextView
-        android:text="@string/remark4"
-        android:textSize="25sp"
+        android:id="@+id/textView15"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/textView14"
         android:layout_alignStart="@+id/textView13"
-        android:id="@+id/textView15" />
+        android:layout_alignTop="@+id/textView14"
+        android:text="@string/remark4"
+        android:textSize="25sp" />
 
     <TextView
-        android:text="@string/rating5"
-        android:textSize="25sp"
+        android:id="@+id/textView16"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView14"
         android:layout_alignStart="@+id/textView14"
+        android:layout_below="@+id/textView14"
         android:layout_marginTop="12dp"
-        android:id="@+id/textView16" />
+        android:text="@string/rating5"
+        android:textSize="25sp" />
 
     <TextView
-        android:text="@string/remark5"
-        android:textSize="25sp"
+        android:id="@+id/textView17"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/textView16"
         android:layout_alignStart="@+id/textView15"
-        android:id="@+id/textView17" />
+        android:layout_alignTop="@+id/textView16"
+        android:text="@string/remark5"
+        android:textSize="25sp" />
 
     <Button
-        android:text="NEXT"
+        android:id="@+id/button2"
         android:layout_width="140dp"
         android:layout_height="60dp"
-        android:id="@+id/button2"
-        android:onClick="gotoFeedback9Page"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="34dp" />
+        android:layout_marginBottom="34dp"
+        android:onClick="gotoFeedback9Page"
+        android:text="@string/next" />
 
     <TextView
-        android:text="@string/remark1"
-        android:textSize="25sp"
+        android:id="@+id/textView9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/textView9"
         android:layout_alignBaseline="@+id/textView8"
         android:layout_alignBottom="@+id/textView8"
         android:layout_alignStart="@+id/button2"
-        android:layout_marginStart="74dp" />
+        android:layout_marginStart="74dp"
+        android:text="@string/remark1"
+        android:textSize="25sp" />
 
     <RatingBar
+        android:id="@+id/ratingBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:scaleX="1.5"
-        android:scaleY="1.5"
-        android:layout_marginBottom="10dp"
-        android:id="@+id/ratingBar"
-        android:layout_marginTop="26dp"
         android:layout_below="@+id/textView7"
         android:layout_centerHorizontal="true"
-        android:stepSize="1"/>
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="26dp"
+        android:scaleX="1.5"
+        android:scaleY="1.5"
+        android:stepSize="1" />
 </RelativeLayout>

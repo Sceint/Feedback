@@ -8,8 +8,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.RatingBar;
 
-import java.security.spec.ECField;
-
 public class FeedBack2 extends AppCompatActivity {
 
     private RatingBar ratingBar2;
@@ -20,28 +18,28 @@ public class FeedBack2 extends AppCompatActivity {
         setContentView(R.layout.activity_feed_back2);
         ratingBar2 = (RatingBar) findViewById(R.id.ratingBar);
     }
-    public void gotoFeedback3Page(View view){
-        try{
-        if (ratingBar2.getRating() != 0.0) {
-            OfflineStoreHelper offlineStoreHelper = OfflineStoreHelper.getInstance(this);
-            offlineStoreHelper.getRatingFromApp("Q2", Integer.parseInt(String.valueOf(Math.round(ratingBar2.getRating()))));
 
-            Intent nextPage = new Intent(FeedBack2.this, FeedBack3.class);
-            startActivity(nextPage);
-        }
-        else{
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("Not Rated");
-            builder.setMessage("Please Give a Rating.")
-                    .setCancelable(false)
-                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            dialog.cancel();
-                        }
-                    });
-            builder.create().show();
-        }}
-        catch (Exception e){
+    public void gotoFeedback3Page(View view) {
+        try {
+            if (ratingBar2.getRating() != 0.0) {
+                OfflineStoreHelper offlineStoreHelper = OfflineStoreHelper.getInstance(this);
+                offlineStoreHelper.getRatingFromApp("Q2", Integer.parseInt(String.valueOf(Math.round(ratingBar2.getRating()))));
+
+                Intent nextPage = new Intent(FeedBack2.this, FeedBack3.class);
+                startActivity(nextPage);
+            } else {
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle("Not Rated");
+                builder.setMessage("Please Give a Rating.")
+                        .setCancelable(false)
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+                builder.create().show();
+            }
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

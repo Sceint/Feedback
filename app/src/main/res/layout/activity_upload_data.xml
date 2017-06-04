@@ -15,37 +15,37 @@
             android:id="@+id/button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="172dp"
             android:elevation="4dp"
             android:onClick="startProcess"
             android:text="Upload Data"
             android:textAllCaps="false"
-            android:textColorLink="@android:color/holo_green_light"
-            android:layout_marginBottom="172dp"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true" />
+            android:textColorLink="@android:color/holo_green_light" />
 
         <ProgressBar
             android:id="@+id/progressBar"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="match_parent"
             android:layout_height="10dp"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"
             android:layout_above="@+id/button"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="30dp" />
+            android:layout_marginBottom="30dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp" />
 
         <TextView
             android:id="@+id/status"
-            android:textSize="25sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"
             android:layout_above="@+id/progressBar"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="40dp"
-            android:text="Upload Status" />
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:text="Upload Status"
+            android:textSize="25sp" />
     </RelativeLayout>
 
     <ListView
@@ -54,5 +54,4 @@
         android:layout_height="match_parent"
         android:layout_gravity="left|start"
         android:background="#ffeeeeee" />
-
 </android.support.v4.widget.DrawerLayout>

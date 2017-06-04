@@ -27,7 +27,6 @@ public class RegisterPage extends AppCompatActivity implements OnItemSelectedLis
         name = (EditText) findViewById(R.id.name);
         name.setInputType(8192);
         mobileNo = (EditText) findViewById(R.id.age);
-
         spinner1 = (Spinner) findViewById(R.id.branch);
         spinner2 = (Spinner) findViewById(R.id.section);
         spinner3 = (Spinner) findViewById(R.id.occupation);
@@ -37,14 +36,14 @@ public class RegisterPage extends AppCompatActivity implements OnItemSelectedLis
         spinner1.setOnItemSelectedListener(this);
     }
 
-    boolean validationCheck(){
-        return checkBranch() && checkSection() && checkYear() && nameCheck() && numberCheck() && checkOccpuation();
+    boolean validationCheck() {
+        return checkBranch() && checkSection() && checkYear() && nameCheck() && numberCheck() && checkOccupation();
     }
 
-    boolean checkBranch(){
-        if(!spinner1.getSelectedItem().toString().equals("SELECT"))
+    boolean checkBranch() {
+        if (!spinner1.getSelectedItem().toString().equals("SELECT"))
             return true;
-        else{
+        else {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("Select Branch");
             builder.setMessage("Please select a Branch")
@@ -59,10 +58,10 @@ public class RegisterPage extends AppCompatActivity implements OnItemSelectedLis
         }
     }
 
-    boolean checkSection(){
-        if(!spinner2.getSelectedItem().toString().equals("SELECT"))
+    boolean checkSection() {
+        if (!spinner2.getSelectedItem().toString().equals("SELECT"))
             return true;
-        else{
+        else {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("Select Section");
             builder.setMessage("Please select a Section")
@@ -77,10 +76,10 @@ public class RegisterPage extends AppCompatActivity implements OnItemSelectedLis
         }
     }
 
-    boolean checkYear(){
-        if(!spinner4.getSelectedItem().toString().equals("SELECT"))
+    boolean checkYear() {
+        if (!spinner4.getSelectedItem().toString().equals("SELECT"))
             return true;
-        else{
+        else {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("Select Year");
             builder.setMessage("Please select a Year")
@@ -95,13 +94,13 @@ public class RegisterPage extends AppCompatActivity implements OnItemSelectedLis
         }
     }
 
-    boolean checkOccpuation(){
-        if(!spinner3.getSelectedItem().toString().equals("SELECT"))
+    boolean checkOccupation() {
+        if (!spinner3.getSelectedItem().toString().equals("SELECT"))
             return true;
-        else{
+        else {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("Select Occpuation");
-            builder.setMessage("Please select a Occpuation")
+            builder.setTitle("Select Occupation");
+            builder.setMessage("Please select a Occupation")
                     .setCancelable(false)
                     .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
@@ -192,7 +191,7 @@ public class RegisterPage extends AppCompatActivity implements OnItemSelectedLis
                 Intent nextPage = new Intent(RegisterPage.this, FeedBack1.class);
                 startActivity(nextPage);
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
