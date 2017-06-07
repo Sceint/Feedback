@@ -1,7 +1,6 @@
 package com.example.admin.feedback;
 
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
@@ -36,6 +35,8 @@ public class QuestionGraph extends AppCompatActivity implements AdapterView.OnIt
         getSupportActionBar().setHomeButtonEnabled(true);
         spinner = (Spinner) findViewById(R.id.spinner_question);
     }
+
+
 
     private void addDrawerItems() {
         String[] osArray = {"Take Feedback", "Upload Data", "Graphs", "Question Graph"};

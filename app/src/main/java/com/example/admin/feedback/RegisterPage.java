@@ -181,19 +181,14 @@ public class RegisterPage extends AppCompatActivity implements OnItemSelectedLis
     }
 
     public void gotoFeedback1Page(View view) {
-        try {
-            if (validationCheck()) {
-                OfflineStoreHelper offlineStoreHelper = OfflineStoreHelper.getInstance(this);
-                offlineStoreHelper.insertParentData(spinner1.getSelectedItem().toString(), spinner2.getSelectedItem().toString(),
-                        spinner4.getSelectedItem().toString(), name.getText().toString(), mobileNo.getText().toString(),
-                        spinner3.getSelectedItem().toString(), getDeviceUniqueID(this));
+        if (validationCheck()) {
+            OfflineStoreHelper offlineStoreHelper = OfflineStoreHelper.getInstance(this);
+            offlineStoreHelper.insertParentData(spinner1.getSelectedItem().toString(), spinner2.getSelectedItem().toString(),
+                    spinner4.getSelectedItem().toString(), name.getText().toString(), mobileNo.getText().toString(),
+                    spinner3.getSelectedItem().toString(), getDeviceUniqueID(this));
 
-                Intent nextPage = new Intent(RegisterPage.this, FeedBack1.class);
-                startActivity(nextPage);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+            Intent nextPage = new Intent(RegisterPage.this, FeedBack1.class);
+            startActivity(nextPage);
         }
     }
-
 }

@@ -6,8 +6,6 @@ import android.content.res.Configuration;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
@@ -20,7 +18,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-public class UploadData extends AppCompatActivity implements AdapterView.OnItemClickListener {
+public class UploadData extends AppCompatActivity implements AdapterView.OnItemClickListener, UploadStatus {
 
     private ListView mDrawerList;
     private ActionBarDrawerToggle mDrawerToggle;
@@ -41,7 +39,6 @@ public class UploadData extends AppCompatActivity implements AdapterView.OnItemC
 
         addDrawerItems();
         setupDrawer();
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
     }
@@ -50,7 +47,6 @@ public class UploadData extends AppCompatActivity implements AdapterView.OnItemC
         String[] osArray = {"Take Feedback", "Upload Data", "Graphs", "Question Graph"};
         ArrayAdapter<String> mAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, osArray);
         mDrawerList.setAdapter(mAdapter);
-
         mDrawerList.setOnItemClickListener(this);
     }
 
@@ -115,37 +111,39 @@ public class UploadData extends AppCompatActivity implements AdapterView.OnItemC
         return netInfo != null && netInfo.isConnected();
     }
 
-    public void updateProgress() {
-        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                progressBar.setProgress(40);
-                status.setText(R.string.u1);
-            }
-        }, 1000);
-        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                progressBar.setProgress(80);
-                status.setText(R.string.u2);
-            }
-        }, 2000);
-        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                progressBar.setProgress(100);
-                status.setText(R.string.u3);
-            }
-        }, 3000);
-    }
+//    public void updateProgress() {
+//        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                progressBar.setProgress(40);
+//                status.setText(R.string.u1);
+//            }
+//        }, 1000);
+//        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                progressBar.setProgress(80);
+//                status.setText(R.string.u2);
+//            }
+//        }, 2000);
+//        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                progressBar.setProgress(100);
+//                status.setText(R.string.u3);
+//            }
+//        }, 3000);
+//    }
 
     public void startProcess(View view) {
         if (isOnline()) {
             OfflineStoreHelper offlineStoreHelper = OfflineStoreHelper.getInstance(this);
-            OnlineDBHelper onlineDBHelper = new OnlineDBHelper();
-            onlineDBHelper.uploadData(new CreateJSON().SQLite2JSON(offlineStoreHelper.getAllParentData()), "JSON2DBParent.php", UploadData.this);
-            onlineDBHelper.uploadData(new CreateJSON().SQLite2JSON(offlineStoreHelper.getAllRatingData()), "JSON2DBRating.php", UploadData.this);
-            updateProgress();
+
+            SendToOnlineDBHelper sendToOnlineDBHelper = new SendToOnlineDBHelper("JSON2DBParent.php", UploadData.this);
+            sendToOnlineDBHelper.execute(new CreateJSON().SQLite2JSON(offlineStoreHelper.getAllParentData()));
+            sendToOnlineDBHelper = new SendToOnlineDBHelper("JSON2DBRating.php", UploadData.this);
+            sendToOnlineDBHelper.execute(new CreateJSON().SQLite2JSON(offlineStoreHelper.getAllRatingData()));
+//            updateProgress();
         } else {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("No Internet");
@@ -158,5 +156,24 @@ public class UploadData extends AppCompatActivity implements AdapterView.OnItemC
                     });
             builder.create().show();
         }
+    }
+
+    @Override
+    public void getDBStatus(String s) {
+        if (s.equals("Failed")) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Cannot Upload");
+            builder.setMessage("Data could not be uploaded due to Network error.")
+                    .setCancelable(false)
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+            builder.create().show();
+            progressBar.setProgress(0);
+        } else
+            progressBar.setProgress(100);
+        status.setText(s);
     }
 }

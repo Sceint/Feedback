@@ -75,31 +75,22 @@ public class OfflineStoreHelper extends SQLiteOpenHelper {
         contentValues.put(DETAILS_NUMBER, number);
         contentValues.put(DETAILS_OCCUPATION, occupation);
         db.insert(TABLE_NAME1, null, contentValues);
-        try {
-            id = getLatestId();
-            this.deviceID = id + "-" + deviceID;
-            db.execSQL("UPDATE `" + TABLE_NAME1 + "` SET `DeviceID`=\'" + this.deviceID + "\' WHERE `_id`=\'" + id + "\'");
-            this.branch = branch;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        id = getLatestId();
+        this.deviceID = id + "-" + deviceID;
+        db.execSQL("UPDATE `" + TABLE_NAME1 + "` SET `DeviceID`=\'" + this.deviceID + "\' WHERE `_id`=\'" + id + "\'");
+        this.branch = branch;
         return true;
     }
 
     private String getLatestId() {
         Cursor res;
-        try {
-            SQLiteDatabase db = this.getReadableDatabase();
-            res = db.rawQuery("SELECT last_insert_rowid()", null);
-            if (res.getColumnCount() == 1) {
-                res.moveToNext();
-                return res.getString(0);
-            }
-            res.close();
-        } catch (Exception e) {
-            e.printStackTrace();
+        SQLiteDatabase db = this.getReadableDatabase();
+        res = db.rawQuery("SELECT last_insert_rowid()", null);
+        if (res.getColumnCount() == 1) {
+            res.moveToNext();
+            return res.getString(0);
         }
-
+        res.close();
         return "No id";
     }
 

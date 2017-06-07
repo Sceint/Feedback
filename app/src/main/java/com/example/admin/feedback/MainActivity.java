@@ -31,7 +31,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         addDrawerItems();
         setupDrawer();
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
     }
@@ -40,7 +39,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         String[] osArray = {"Take Feedback", "Upload Data", "Graphs", "Question Graph"};
         ArrayAdapter<String> mAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, osArray);
         mDrawerList.setAdapter(mAdapter);
-
         mDrawerList.setOnItemClickListener(this);
     }
 
