@@ -180,14 +180,14 @@ public class RegisterPage extends AppCompatActivity implements OnItemSelectedLis
                 Settings.Secure.ANDROID_ID);
     }
 
-    public void gotoFeedback1Page(View view) {
+    public void gotoFeedbackPage(View view) {
         if (validationCheck()) {
             OfflineStoreHelper offlineStoreHelper = OfflineStoreHelper.getInstance(this);
             offlineStoreHelper.insertParentData(spinner1.getSelectedItem().toString(), spinner2.getSelectedItem().toString(),
                     spinner4.getSelectedItem().toString(), name.getText().toString(), mobileNo.getText().toString(),
                     spinner3.getSelectedItem().toString(), getDeviceUniqueID(this));
 
-            Intent nextPage = new Intent(RegisterPage.this, FeedBack1.class);
+            Intent nextPage = new Intent(RegisterPage.this, FeedbackPage.class);
             startActivity(nextPage);
         }
     }

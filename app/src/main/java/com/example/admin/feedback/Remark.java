@@ -18,8 +18,15 @@ public class Remark extends AppCompatActivity {
         remark.setInputType(16384);
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        FeedbackPage.qCount--;
+    }
+
     public void gotoFinishPage(View view) {
         OfflineStoreHelper offlineStoreHelper = OfflineStoreHelper.getInstance(this);
+        offlineStoreHelper.insertRatingData();
         offlineStoreHelper.insertRemark(remark.getText().toString());
         Intent nextPage = new Intent(Remark.this, Welcome.class);
         startActivity(nextPage);

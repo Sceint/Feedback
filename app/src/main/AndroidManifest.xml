@@ -22,21 +22,7 @@
         </activity>
         <activity android:name=".RegisterPage" />
         <activity android:name=".UploadData" />
-        <activity android:name=".FeedBack1" />
-        <activity android:name=".FeedBack2" />
-        <activity android:name=".FeedBack3" />
-        <activity android:name=".FeedBack4" />
-        <activity android:name=".FeedBack5" />
-        <activity android:name=".FeedBack6" />
-        <activity android:name=".FeedBack7" />
-        <activity android:name=".FeedBack8" />
-        <activity android:name=".FeedBack9" />
-        <activity android:name=".FeedBack10" />
-        <activity android:name=".FeedBack11" />
-        <activity android:name=".FeedBack12" />
-        <activity android:name=".FeedBack13" />
-        <activity android:name=".FeedBack14" />
-        <activity android:name=".FeedBack15" />
+        <activity android:name=".FeedbackPage" />
         <activity android:name=".Remark" />
         <activity android:name=".RatingDisplay" />
         <activity android:name=".QuestionGraph" />

@@ -17,7 +17,7 @@ public class OfflineStoreHelper extends SQLiteOpenHelper {
     static OfflineStoreHelper offlineStoreHelper;
 
     private static final String DATABASE_NAME = "LocalDB.db";
-    private static final int DATABASE_VERSION = 8;
+    private static final int DATABASE_VERSION = 9;
     private static final String TABLE_NAME1 = "parentDetails";
     private static final String TABLE_NAME2 = "ratingDetails";
     private static final String TABLE_NAME3 = "QuestionData";
@@ -57,6 +57,7 @@ public class OfflineStoreHelper extends SQLiteOpenHelper {
                 "Q3 INTEGER, Q4 INTEGER, Q5 INTEGER, Q6 INTEGER, Q7 INTEGER, Q8 INTEGER, Q9 INTEGER, " +
                 "Q10 INTEGER, Q11 INTEGER, Q12 INTEGER, Q13 INTEGER, Q14 INTEGER, Q15 INTEGER, DateCreated DATETIME DEFAULT CURRENT_TIMESTAMP, "
                 + DETAILS_DEVICE_ID + " VARCHAR(25))");
+        db.execSQL("CREATE TABLE IF NOT EXISTS " + TABLE_NAME3 + " (qNo INTEGER, Question TEXT)");
     }
 
     @Override
@@ -160,8 +161,8 @@ public class OfflineStoreHelper extends SQLiteOpenHelper {
         }
     }
 
-    JSONArray getQuestions() {
+    Cursor getQuestions() {
         SQLiteDatabase db = this.getReadableDatabase();
-        return new CreateJSON().SQLite2JSON(db.rawQuery("SELECT `qNo`, `Question` FROM `" + TABLE_NAME3 + "`", null));
+        return db.rawQuery("SELECT * FROM " + TABLE_NAME3, null);
     }
 }

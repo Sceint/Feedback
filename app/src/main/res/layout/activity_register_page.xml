@@ -126,7 +126,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="20dp"
             android:foregroundGravity="bottom"
-            android:onClick="gotoFeedback1Page"
+            android:onClick="gotoFeedbackPage"
             android:text="Register" />
 
         <TextView
