@@ -14,7 +14,7 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-class SendToOnlineDBHelper extends AsyncTask<JSONArray, Void, String> {
+class  SendToOnlineDBHelper extends AsyncTask<JSONArray, Void, String> {
     private String invoke_url = "";
     private UploadStatus uploadStatus;
 

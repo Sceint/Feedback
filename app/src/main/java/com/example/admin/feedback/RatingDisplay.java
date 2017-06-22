@@ -53,11 +53,20 @@ public class RatingDisplay extends AppCompatActivity implements AdapterView.OnIt
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+
+
+        progressBar = new ProgressDialog(this);
+        progressBar.setCancelable(true);
+        progressBar.setMessage("Generating Graph...");
+        progressBar.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressBar.setIndeterminate(true);
+        progressBar.show();
+
         displayGraph();
     }
 
     private void addDrawerItems() {
-        String[] osArray = {"Take Feedback", "Upload Data", "Graphs", "Question Graph"};
+        String[] osArray = {"Take Feedback", "Upload Data", "Graphs", "Question Graph", "Update Question"};
         ArrayAdapter<String> mAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, osArray);
         mDrawerList.setAdapter(mAdapter);
         mDrawerList.setOnItemClickListener(this);
@@ -73,8 +82,10 @@ public class RatingDisplay extends AppCompatActivity implements AdapterView.OnIt
         } else if (position == 2) {
             nextPage = new Intent(this, RatingDisplay.class);
             nextPage.putExtra("value", "Averages");
-        } else {
+        } else if (position == 3) {
             nextPage = new Intent(this, QuestionGraph.class);
+        } else {
+            nextPage = new Intent(this, UpdateQuestion.class);
         }
         nextPage.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(nextPage);
@@ -124,13 +135,6 @@ public class RatingDisplay extends AppCompatActivity implements AdapterView.OnIt
     }
 
     void displayGraph() {
-        progressBar = new ProgressDialog(this);
-        progressBar.setCancelable(true);
-        progressBar.setMessage("Generating Graph...");
-        progressBar.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        progressBar.setIndeterminate(true);
-        progressBar.show();
-
         Intent intent = getIntent();
         String value = intent.getStringExtra("value");
         if (value.equals("Averages")) {
@@ -148,17 +152,16 @@ public class RatingDisplay extends AppCompatActivity implements AdapterView.OnIt
 
     @Override
     public void processFinish(List<String> ratings, String data) {
-        try {
-            if (ratings == null || ratings.size() == 0) {
-                new AlertDialog.Builder(this)
-                        .setTitle("Error").setMessage("Internet Issue or No data to Generate Graph")
-                        .setCancelable(false)
-                        .setPositiveButton("Try Again", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
-                            }
-                        }).create().show();
-            }
+        if (ratings == null || ratings.size() == 0) {
+            new AlertDialog.Builder(this)
+                    .setTitle("Error").setMessage("Internet Issue or No data to Generate Graph")
+                    .setCancelable(false)
+                    .setPositiveButton("Try Again", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    }).create().show();
+        } else {
             int count = 5;
             DataPoint[] dataPoints;
 
@@ -197,26 +200,30 @@ public class RatingDisplay extends AppCompatActivity implements AdapterView.OnIt
             else
                 graphView.getViewport().setMaxY(count);
             graphView.getViewport().setScalable(true); // enables horizontal zooming and scrolling
-            progressBar.hide();
-        } catch (Exception e) {
-            e.printStackTrace();
         }
+        progressBar.hide();
     }
 
     void offlineGraph(String data) {
         try {
             int count = 0;
+            boolean flag = false;
             DataPoint[] dataPoints;
             OfflineStoreHelper offlineStoreHelper = OfflineStoreHelper.getInstance(this);
             if (data.equals("average")) {
                 dataPoints = new DataPoint[15];
                 JSONArray outer = offlineStoreHelper.getAverages();
+                if (outer.length() == 0)
+                    flag = true;
                 JSONObject inner = outer.getJSONObject(0);
                 for (int i = 0; i < 15; i++)
                     dataPoints[i] = new DataPoint(i + 1, inner.getDouble("AVG(Q" + (i + 1) + ")"));
             } else {
                 dataPoints = new DataPoint[5];
                 JSONArray outer = offlineStoreHelper.getRatingOfQuestion(data);
+                if (outer.length() == 0) {
+                    flag = true;
+                }
                 List<Integer> l = new ArrayList<>();
                 for (int i = 0; i < outer.length(); i++) {
                     JSONObject inner = outer.getJSONObject(i);

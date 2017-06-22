@@ -40,7 +40,8 @@
         <activity android:name=".Remark" />
         <activity android:name=".RatingDisplay" />
         <activity android:name=".QuestionGraph" />
-        <activity android:name=".Welcome" />>
+        <activity android:name=".Welcome" />
+        <activity android:name=".UpdateQuestion"/>
     </application>
 
 </manifest>

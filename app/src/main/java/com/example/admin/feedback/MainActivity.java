@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
     private void addDrawerItems() {
-        String[] osArray = {"Take Feedback", "Upload Data", "Graphs", "Question Graph"};
+        String[] osArray = {"Take Feedback", "Upload Data", "Graphs", "Question Graph", "Update Question"};
         ArrayAdapter<String> mAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, osArray);
         mDrawerList.setAdapter(mAdapter);
         mDrawerList.setOnItemClickListener(this);
@@ -52,8 +52,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         } else if (position == 2) {
             nextPage = new Intent(this, RatingDisplay.class);
             nextPage.putExtra("value", "Averages");
-        } else {
+        } else if (position == 3) {
             nextPage = new Intent(this, QuestionGraph.class);
+        } else {
+            nextPage = new Intent(this, UpdateQuestion.class);
         }
         nextPage.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(nextPage);

@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import org.json.JSONArray;
 
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -19,6 +20,7 @@ public class OfflineStoreHelper extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 8;
     private static final String TABLE_NAME1 = "parentDetails";
     private static final String TABLE_NAME2 = "ratingDetails";
+    private static final String TABLE_NAME3 = "QuestionData";
     private static final String DETAILS_BRANCH = "Branch";
     private static final String DETAILS_YEAR = "Year";
     private static final String DETAILS_SECTION = "Section";
@@ -141,5 +143,25 @@ public class OfflineStoreHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         return new CreateJSON().SQLite2JSON(db.rawQuery("SELECT `" + qNo + "`, COUNT(*) FROM `" + TABLE_NAME2 +
                 "` GROUP BY `" + qNo + "`", null));
+    }
+
+    void updateQuestionTable(List<String> q) {
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME3);
+        db.execSQL("CREATE TABLE " + TABLE_NAME3 + " (qNo INTEGER, Question TEXT)");
+
+        ContentValues contentValues = new ContentValues();
+
+        for (String s : q) {
+            String temp[] = s.split("-");
+            contentValues.put("qNo", temp[0]);
+            contentValues.put("Question", temp[1]);
+            db.insert("QuestionData", null, contentValues);
+        }
+    }
+
+    JSONArray getQuestions() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        return new CreateJSON().SQLite2JSON(db.rawQuery("SELECT `qNo`, `Question` FROM `" + TABLE_NAME3 + "`", null));
     }
 }
