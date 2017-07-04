@@ -156,11 +156,15 @@ public class UpdateQuestion extends AppCompatActivity implements AdapterView.OnI
         }
     }
 
+    void updateStringArray(List<String> questions){
+
+    }
+
     @Override
-    public void processFinish(List<String> ratings, String data) {
-        if (ratings == null || ratings.size() == 0) {
+    public void processFinish(List<String> questions, String data) {
+        if (questions == null || questions.size() == 0) {
             new AlertDialog.Builder(this)
-                    .setTitle("Error").setMessage("Internet Issue or No data to Generate Graph")
+                    .setTitle("Error").setMessage("Internet Conection Issues")
                     .setCancelable(false)
                     .setPositiveButton("Try Again", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
@@ -169,7 +173,8 @@ public class UpdateQuestion extends AppCompatActivity implements AdapterView.OnI
                     }).create().show();
             progressBar.setProgress(0);
         } else {
-            OfflineStoreHelper.getInstance(this).updateQuestionTable(ratings);
+            OfflineStoreHelper.getInstance(this).updateQuestionTable(questions);
+            updateStringArray(questions);
             progressBar.setProgress(100);
             status.setText("Questions Updated");
         }

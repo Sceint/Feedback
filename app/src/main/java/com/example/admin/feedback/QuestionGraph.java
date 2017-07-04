@@ -1,10 +1,13 @@
 package com.example.admin.feedback;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,6 +16,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class QuestionGraph extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
     private ListView mDrawerList;
@@ -20,6 +26,8 @@ public class QuestionGraph extends AppCompatActivity implements AdapterView.OnIt
     private DrawerLayout mDrawerLayout;
     private String mActivityTitle;
     private Spinner spinner;
+    private static List<String> questions;
+    private static int qNo = 0;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -34,9 +42,22 @@ public class QuestionGraph extends AppCompatActivity implements AdapterView.OnIt
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
         spinner = (Spinner) findViewById(R.id.spinner_question);
+        updateQuestions();
     }
 
-
+    void updateQuestions() {
+        questions = new ArrayList<>();
+        questions.add("Select Question");
+        OfflineStoreHelper offlineStoreHelper = OfflineStoreHelper.getInstance(this);
+        Cursor cursor = offlineStoreHelper.getQuestions();
+        int columnCount = cursor.getColumnCount();
+        while (cursor.moveToNext()) {
+            for (int i = 1; i < columnCount; i++)
+                questions.add(cursor.getString(1));
+        }
+        ArrayAdapter adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, questions);
+        spinner.setAdapter(adapter);
+    }
 
     private void addDrawerItems() {
         String[] osArray = {"Take Feedback", "Upload Data", "Graphs", "Question Graph", "Update Question"};
@@ -101,9 +122,27 @@ public class QuestionGraph extends AppCompatActivity implements AdapterView.OnIt
         return mDrawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
     }
 
+    public static String getQuestion() {
+        return questions.get(qNo);
+    }
+
     public void generateGraph(View v) {
         Intent intent = new Intent(QuestionGraph.this, RatingDisplay.class);
-        intent.putExtra("value", spinner.getSelectedItem().toString());
-        startActivity(intent);
+        qNo = spinner.getSelectedItemPosition();
+        if (qNo == 0) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Select Question");
+            builder.setMessage("Please Select a Question from the Drop Down")
+                    .setCancelable(false)
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+            builder.create().show();
+        } else {
+            intent.putExtra("value", "Q" + qNo);
+            startActivity(intent);
+        }
     }
 }

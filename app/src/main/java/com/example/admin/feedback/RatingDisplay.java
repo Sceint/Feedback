@@ -189,16 +189,19 @@ public class RatingDisplay extends AppCompatActivity implements AdapterView.OnIt
             series.setValuesOnTopColor(Color.rgb(0, 0, 0));
 
             graphView.addSeries(series);
-            graphView.setTitle("Online Data Graph");
             graphView.getViewport().setXAxisBoundsManual(true);
             graphView.getViewport().setMinX(0);
             graphView.getViewport().setMaxX(dataPoints.length + 1);
             graphView.getViewport().setYAxisBoundsManual(true);
             graphView.getViewport().setMinY(0);
-            if (data.equals("average"))
+            graphView.setTitleTextSize(45);
+            if (data.equals("average")) {
+                graphView.setTitle("Online Data Graph");
                 graphView.getViewport().setMaxY(5);
-            else
+            } else {
+                graphView.setTitle(QuestionGraph.getQuestion());
                 graphView.getViewport().setMaxY(count);
+            }
             graphView.getViewport().setScalable(true); // enables horizontal zooming and scrolling
         }
         progressBar.hide();
@@ -247,11 +250,12 @@ public class RatingDisplay extends AppCompatActivity implements AdapterView.OnIt
             graphView.getViewport().setMaxX(dataPoints.length + 1);
             graphView.getViewport().setYAxisBoundsManual(true);
             graphView.getViewport().setMinY(0);
+            graphView.setTitleTextSize(45);
             if (data.equals("average")) {
                 graphView.setTitle("Offline Data Graph");
                 graphView.getViewport().setMaxY(5);
             } else {
-                graphView.setTitle("Offline Data Graph\n" + R.string.Q1);
+                graphView.setTitle(QuestionGraph.getQuestion());
                 graphView.getViewport().setMaxY(count);
             }
             graphView.getViewport().setScalable(true); // enables horizontal zooming and scrolling
